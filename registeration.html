@@ -4490,7 +4490,7 @@
         <div class="container">
            
             <header>
-                <h1>Login and Registration Form</h1>
+               
 				
             </header>
             <section>				
@@ -4503,7 +4503,7 @@
                             <form  action="mysuperscript.php" autocomplete="on"> 
                                 <h1>Log in</h1> 
                                 <p> 
-                                    <label for="username" class="uname" > Your email or username </label>
+                                    <label for="username" class="uname" > Your email </label>
                                     <input id="username" name="username" required="required" type="text" placeholder="myusername or mymail@mail.com"/>
                                 </p>
                                 <p> 
@@ -4515,7 +4515,7 @@
 									<label for="loginkeeping">Keep me logged in</label>
 								</p>
                                 <p class="login button"> 
-                                   <a href="http://cookingfoodsworld.blogspot.in/" target="_blank" ></a>
+                                   <a href="http://cookingfoodsworld.blogspot.in/" target="_blank" >Log In</a>
 								</p>
                                 <p class="change_link">
 									Not a member yet ?
@@ -4526,14 +4526,22 @@
 
                         <div id="register" class="animate form">
                             <form  action="mysuperscript.php" autocomplete="on"> 
-                                <h1> Sign up </h1> 
+                                <h1> Sign up </h1>
                                 <p> 
-                                    <label for="usernamesignup" class="uname" >Your username</label>
-                                    <input id="usernamesignup" name="username" required="required" type="text" placeholder="mysuperusername690" />
+                                    <label for="firstname" class="uname" > First Name</label>
+                                    <input id="firstname" name="firstname" required="required" type="text" placeholder=" First Name "/>
+                                </p>
+                                <p> 
+                                    <label for="lastname" class="uname" >Last Name</label>
+                                    <input id="lastname" name="lastname" required="required" type="text" placeholder=" Last Name " />
                                 </p>
                                 <p> 
                                     <label for="emailsignup" class="youmail"  > Your email</label>
-                                    <input id="emailsignup" name="useremail" required="required" type="email" placeholder="mysupermail@mail.com"/> 
+                                    <input id="emailsignup" name="useremail" required="required" type="email" placeholder="mysupermail@mail.com" pattern="^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$" /> 
+                                </p>
+                                <p> 
+                                    <label for="mobile" class="uname" > Your Mobile </label>
+                                    <input id="mobile" name="mobile" required="required" type="text" placeholder=" +91-8378473892 " pattern="[789][0-9]{9}"/>
                                 </p>
                                 <p> 
                                     <label for="passwordsignup" class="youpasswd" >Your password </label>
