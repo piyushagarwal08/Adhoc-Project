@@ -18,5 +18,6 @@ message = 'Click on the link below to successfully complete your registeration'+
 s.sendmail("piyushmittal.agarwal2@gmail.com",user_email,message)
 s.quit()
 
+print('<body background-image: url("background_reg_check.jpeg")</body>')
 print('Hey Welcome , Wanna test yourself?')
 print('</br> just click on the link send to your mail to successfully register yourself and start the test')
