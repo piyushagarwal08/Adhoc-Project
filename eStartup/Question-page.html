@@ -10,7 +10,13 @@
 
 	<!-- Required CSS -->
 	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css">
-
+	<link href="lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+	<link href="css/style.css" rel="stylesheet">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+	
 <!-- Custom CSS -->
 	<style type="text/css">
 		.ui.main.container {
@@ -32,7 +38,7 @@
 		background: white;
 		box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
 		overflow-y:hidden;
-    color:#6fdc6f !important;
+    color:cornflowerblue !important;
 	}
 	.card-list-soal .soal {
 		padding-top: 10px;
@@ -46,7 +52,7 @@
 		top: 30%;
 		right: 0;
 		padding: 50px;
-		background: #6fdc6f;
+		background:cornflowerblue;
 		color: white;
 		text-align: right;
 		cursor: pointer;
@@ -74,8 +80,8 @@
 	.opsi label.abjad:hover { background: #2185d0;cursor: pointer; }
 	.opsi label.abjad:hover + .opsi { background: #2185d0;cursor: pointer; }
 	.opsi input[type="radio"]:checked + label.abjad {
-		background:#6fdc6f !important;
-		color:#6fdc6f !important;
+		background:#2185d0 !important;
+		color:#2185d0 !important;
 	}
 	.opsi label.isi {
 		display: block;
@@ -97,26 +103,42 @@
         padding-bottom:17px !important
       }
       
+				
+			
 	</style>
 
 </head>
 <body>
 	<!-- Page Header -->
-		<div class="ui borderless fixed menu navbar">
-		<div class="ui container">
-		  <a class="item drawer toggle mobile only" style="padding:10px;margin-right: 5px;">
-		  	<i class="bars icon"></i>
-		  </a>
-		  <span class="header item" style="padding-left: 0px;margin-left: 4px;">
-		  	Redhat Quiz
-		  </span>
-		  <div class="right menu">
+	
+  <header id="header" class="header header-hide cust">
+    <div class="container">
 
-				<div class="item mobile hidden"> <i class="user outline icon"></i> User Name</div>
-		  </div>
-		</div>
-	</div>
+      <div id="logo" class="pull-left">
+				<h1><a href="#body" class="scrollto"><span>e</span>Startup</a></h1>
+        <!-- Uncomment below if you prefer to use an image logo -->
+				<!-- <a href="#body"><img src="img/logo.png" alt="" title="" /></a>-->
+      </div>
+				<div class="dropdown pull-right">
+					<button class="btn btn-default dropdown-toggle" type="button" id="menu1" data-toggle="dropdown">Tutorials</button>
+					<ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
+						<li role="presentation"><a role="menuitem" tabindex="-1" href="#">Docker</a></li>
+						<li role="presentation"><a role="menuitem" tabindex="-1" href="#">Ansible</a></li>
+						<li role="presentation" class="divider"></li>
+						<li role="presentation"><a role="menuitem" tabindex="-1" href="#">Redhat</a></li>
+						<li role="presentation"><a role="menuitem" tabindex="-1" href="#">AWS</a></li>
+						<li role="presentation" class="divider"></li>
+						<li role="presentation"><a role="menuitem" tabindex="-1" href="#">Python</a></li>
+						
+					</ul>
+				</div>			
+      </div>
+  </header><!-- #header -->
 
+		
+	<br>
+	<br>
+	<br>
 	<!-- Page Content -->
 		<div class="ui active dimmer page" style="z-index: 103;">
 		<div class="ui text loader" style="margin-top: 250px;">Loading</div>
@@ -165,65 +187,12 @@
 						<div class="opsi">
 							<input type="radio" name="opsi" class="opsi" id="d">
 							<label class="abjad" for="d">D</label>
-							<label class="isi">
-								<p>Linux</p>
-
-							</label>
+							<label class="isi">Linux</label>
 						</div>
             </div>
 
 
-            <div class="ui main container">
-          		<div class="ui card">
-          			<div class="content">
-          				<div class="ui header">
-          				Questions : <span data-position="bottom right" data-tooltip="Nomor Soal Saat Ini" class="ui blue label">2</span>
-
-          					<div style="float: right;">
-
-          							<div class="menu">
-
-          							</div>
-          						</div>
-
-
-          					</div>
-          				</div>
-
-
-            <div class="ui divider"></div>
-
-            <div class="description">
-              <p>Which technology is used for automation?</p>
-              <form class="ui form opsi">
-
-                <div class="opsi">
-                  <input type="radio" name="opsi" class="opsi" id="a">
-                  <label class="abjad" for="a">A</label>
-                  <label class="isi">Ansible</label>
-                </div>
-
-                <div class="opsi">
-                  <input type="radio" name="opsi" class="opsi" id="b">
-                  <label class="abjad" for="b">B</label>
-                  <label class="isi">Docker</label>
-                </div>
-
-                <div class="opsi">
-                  <input type="radio" name="opsi" class="opsi" id="c">
-                  <label class="abjad" for="c">C</label>
-                  <label class="isi">Devops</label>
-                </div>
-
-                <div class="opsi">
-                  <input type="radio" name="opsi" class="opsi" id="d">
-                  <label class="abjad" for="d">D</label>
-                  <label class="isi">
-                    <p>Linux</p>
-
-                  </label>
-                </div>
-
+            
 
 
 					</form>
@@ -232,14 +201,16 @@
 
 					<div class="nav-soal center aligned">
 
-
-						<button class="ui right labeled blue icon button mobile hidden" >
+						<button class="btn btn-success " >
+						  <i class="chevron right icon" ></i>
+						  Next
+						</button>
+						
+						<button class="btn btn-success " >
 						  <i class="chevron right icon" ></i>
 						  Submit
 						</button>
-						<button class="ui blue icon button mobile only" >
-						  <i class="chevron right icon"></i>
-						</button>
+						
 					</div>
 
 				</div>
@@ -256,7 +227,7 @@
   integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
   crossorigin="anonymous"></script>
 	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.js"></script>
-
+	
 	<!-- Custom JavaScript -->
 	<script type="text/javascript">
 	$(document).ready(function(){
@@ -274,7 +245,7 @@
 		$('#close-list-soal').click(function(){
 			$('.card-list-soal').fadeOut(intervalAnim);
 			$('.button-list-soal').fadeIn(intervalAnim);
-		});
+		});	
 		$('.button-list-soal').click(function(){
 			$('.card-list-soal').fadeIn(intervalAnim);
 			$('.button-list-soal').fadeOut(intervalAnim);
