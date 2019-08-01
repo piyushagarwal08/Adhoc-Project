@@ -21,5 +21,7 @@ create table userInfo(
  create table testInfo(
     -> test_id INT NOT NULL AUTO_INCREMENT,
     -> test_name VARCHAR(100) NOT NULL,
+    -> test_file VARCHAR(100) NOT NULL,
+    -> Max_score INT NOT NULL,
     -> PRIMARY KEY (test_id));
 ```
