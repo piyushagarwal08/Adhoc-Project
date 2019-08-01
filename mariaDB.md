@@ -18,10 +18,18 @@ create table userInfo(
     -> user_password varchar(50) NOT NULL,
     -> PRIMARY KEY (user_id));
 
- create table testInfo(
+create table testInfo(
     -> test_id INT NOT NULL AUTO_INCREMENT,
     -> test_name VARCHAR(100) NOT NULL,
     -> test_file VARCHAR(100) NOT NULL,
     -> Max_score INT NOT NULL,
     -> PRIMARY KEY (test_id));
+
+create table userScore(
+    -> user_id int NOT NULL,
+    -> test_id int NOT NULL,
+    -> score int NOT NULL,
+    -> FOREIGN KEY (user_id) REFERENCES userInfo(user_id),
+    -> FOREIGN KEY (test_id) REFERENCES testInfo(test_id)
+    -> );
 ```
