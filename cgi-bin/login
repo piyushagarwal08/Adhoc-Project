@@ -1,15 +1,12 @@
 #!/usr/bin/python3
 import mysql.connector as mysql
 import cgi
-import subprocess
 from http import cookies
 # RDS information
 username='root'
 password='vijay'
 database_name='project1'
 host='localhost'
-ip=subprocess.getoutput("curl http://169.254.169.254/latest/meta-data/public-ipv4")
-ip=ip.split('\n')[-1]
 
 # Now connecting the Database
 conn=mysql.connect(user=username,password=password,database=database_name,host=host)
@@ -28,9 +25,9 @@ data=cur.fetchone()
 #user data is incorrect
 if len(data)==0 or data[-1]!=user_password:
 	print("Content-type: text/html\r\n\r\n")
-	print('<!DOCTYPE html><html><body bgcolor="#000000"><center><img src="http://'+ip+'/img/giphy.gif"></img>')
+	print('<!DOCTYPE html><html><body bgcolor="#000000"><center><img src="/img/giphy.gif"></img>')
 	print('<h1><font color="#8ebf42" face="verdana">Invalid Email aur Password</font></h1>')
-	print('<meta http-equiv = "refresh" content = "3; url = http://'+ip+'/login-register" />')
+	print('<meta http-equiv = "refresh" content = "3; url = /login-register" />')
 	print("</center></body></html>")
 	exit(0)
 
@@ -51,7 +48,7 @@ print('Content-type: text/html \r\n\r\n')
 
 #Now Cookies are set and we can use them now 
 
-print('<!DOCTYPE html><html><body bgcolor="#000000"><center><img src="http://'+ip+'/img/giphy.gif"></img>')
+print('<!DOCTYPE html><html><body bgcolor="#000000"><center><img src="/img/giphy.gif"></img>')
 print('<h1><font color="#8ebf42" face="verdana">Login Succesfull</font></h1>')
-print('<meta http-equiv = "refresh" content = "3; url = http://'+ip+'/" />')
+print('<meta http-equiv = "refresh" content = "3; url = /" />')
 print("</center></body></html>")

@@ -5,9 +5,29 @@
 	<meta name="viewport" content="width=device-width,initial-scale=1">
 	<title>Lowin</title>
 	<link rel="stylesheet" href="auth.css">
-</head>
+	<script type="text/javascript">
+    		function accessCookie(cookieName)
+  		{
+    		var name = cookieName + "=";
+    		var allCookieArray = document.cookie.split(';');
+    		for(var i=0; i<allCookieArray.length; i++)
+    		{
+      			var temp = allCookieArray[i].trim();
+      			if (temp.indexOf(name)==0)
+        		return temp.substring(name.length,temp.length);
+    			}
+    			return "";
+  		}
+    		function checkCookie()
+  		{
+  		var user = accessCookie("User_Id");
+  		if (user!="")
+    		window.location="http://13.127.254.208/";
+  		}
+	</script>
+</head >
 
-<body>
+<body onload="checkCookie()">
 	<div class="lowin">
 		<div class="lowin-brand">
 			<img src="kodinger.jpg" alt="logo">

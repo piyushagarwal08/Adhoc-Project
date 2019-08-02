@@ -10,8 +10,8 @@
 
 	<!-- Required CSS -->
 	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css">
-	<link href="lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-	<link href="css/style.css" rel="stylesheet">
+	<link href="/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+	<link href="/css/style.css" rel="stylesheet">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
@@ -106,9 +106,28 @@
 				
 			
 	</style>
-
+	<script type="text/javascript">
+                function accessCookie(cookieName)
+                {
+                var name = cookieName + "=";
+                var allCookieArray = document.cookie.split(';');
+                for(var i=0; i<allCookieArray.length; i++)
+                {
+                        var temp = allCookieArray[i].trim();
+                        if (temp.indexOf(name)==0)
+                        return temp.substring(name.length,temp.length);
+                        }
+                        return "";
+                }
+                function checkCookie()
+                {
+                var user = accessCookie("User_Id");
+                if (user=="")
+                window.location="/login-register";
+                }
+        </script>	
 </head>
-<body>
+<body onload="checkCookie()">
 	<!-- Page Header -->
 	
   <header id="header" class="header header-hide cust">
@@ -120,18 +139,11 @@
 				<!-- <a href="#body"><img src="img/logo.png" alt="" title="" /></a>-->
       </div>
 				<div class="dropdown pull-right">
-					<button class="btn btn-default dropdown-toggle" type="button" id="menu1" data-toggle="dropdown">Tests</button>
-					<ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
-						<li role="presentation"><a role="menuitem" tabindex="-1" href="#">Docker</a></li>
-						<li role="presentation"><a role="menuitem" tabindex="-1" href="#">Ansible</a></li>
-						<li role="presentation" class="divider"></li>
-						<li role="presentation"><a role="menuitem" tabindex="-1" href="#">Redhat</a></li>
-						<li role="presentation"><a role="menuitem" tabindex="-1" href="#">AWS</a></li>
-						<li role="presentation" class="divider"></li>
-						<li role="presentation"><a role="menuitem" tabindex="-1" href="#">Python</a></li>
-						
-					</ul>
-				</div>			
+					<button class="btn btn-default dropdown-toggle" type="button" id="menu1" >Tests</button>
+				</div>		
+				<script>
+				document.getElementById("menu1").innerHTML = "Hi There "+ accessCookie("User_Name");
+				</script>	
       </div>
   </header><!-- #header -->
 

@@ -27,24 +27,55 @@
 
   <!-- Main Stylesheet File -->
   <link href="css/style.css" rel="stylesheet">
-
-  <!-- =======================================================
-    Theme Name: eStartup
-    Theme URL: https://bootstrapmade.com/estartup-bootstrap-landing-page-template/
-    Author: BootstrapMade.com
-    License: https://bootstrapmade.com/license/
-  ======================================================= -->
+	        <script type="text/javascript">                                                                                                                                 
+                function accessCookie(cookieName)                                                                                                                       
+                {                                                                                                                                                       
+                var name = cookieName + "=";                                                                                                                            
+                var allCookieArray = document.cookie.split(';');                                                                                                        
+                for(var i=0; i<allCookieArray.length; i++)                                                                                                              
+                {                                                                                                                                                       
+                        var temp = allCookieArray[i].trim();                                                                                                            
+                        if (temp.indexOf(name)==0)                                                                                                                      
+                        return temp.substring(name.length,temp.length);                                                                                                 
+                        }                                                                                                                                               
+                        return "";                                                                                                                                      
+                }                                                                                                                                                       
+                function checkCookie()                                                                                                                                  
+                {                                                                                                                                                       
+                var user = accessCookie("User_Id");                                                                                                                     
+                if (user=="")
+		{	 
+		document.getElementById("menu1").innerHTML = "Login";
+		document.getElementById("menu1").setAttribute("onclick", "window.location.href='/login-register';"); 
+		}		
+		else
+			{
+				document.getElementById("menu1").innerHTML = "Hi There "+ accessCookie("User_Name");
+			}
+		}
+		function setuser()
+		{
+		 document.getElementById("userID").setAttribute("value",accessCookie("User_Id"));
+		}                                                                                                                                                       
+        </script>                                                                                                                                                       
 </head>
 
 <body>
 
   <header id="header" class="header header-hide">
-    <div class="container">
+<div class="container">
 
       <div id="logo" class="pull-left">
-        <h1><a href="#body" class="scrollto"><span>e</span>Startup</a></h1>
+                                <h1><a href="#body" class="scrollto"><span>QUIZ</span>MANIA</a></h1>
         <!-- Uncomment below if you prefer to use an image logo -->
-        <!-- <a href="#body"><img src="img/logo.png" alt="" title="" /></a>-->
+                                <!-- <a href="#body"><img src="img/logo.png" alt="" title="" /></a>-->
+      </div>
+                                <div class="dropdown pull-right">
+                                        <button onclick="window.location.href='/';" class="btn btn-default dropdown-toggle" type="button" id="menu1" >Tests</button>
+                                </div>
+				<script>
+                                checkCookie();
+                                </script>
       </div>
   </header><!-- #header -->
 
@@ -79,14 +110,23 @@
 
     <div class="container">
       <div class="row">
-
-        <div class="col-md-6 col-lg-3">
-          <div class="feature-block">
+<div class="col-md-6 col-lg-3">
+          <form action="/cgi-bin/begin" method="post">
+            <input type="hidden" id ="userID" name="userid" value="">
+            <input type="hidden" name="testid" value="1">
+            <input type="submit">
+          <div class="feature-block" >
             <img src="img/docker.svg" alt="img" class="img-fluid">
+            
             <h4>Docker</h4>
             <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry</p>
           </div>
         </div>
+      </form>
+      <script>
+        setuser();
+      </script>
+
 
         <div class="col-md-6 col-lg-3">
           <div class="feature-block">

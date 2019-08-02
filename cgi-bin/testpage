@@ -1,0 +1,347 @@
+#!/usr/bin/python3
+
+import cgi
+import mysql.connector as mysql
+
+#Magic Line
+print("Content-type: text/html\r\n\r\n")
+
+bodyupper='''
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+	<!-- Title Page -->
+	<title>Welcome to the Quiz</title>
+
+	<!-- Meta -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<!-- Required CSS -->
+	<link rel="stylesheet" type="text/css" href="/Question-page_files/semantic.css">
+	<link href="/Question-page_files/bootstrap_002.css" rel="stylesheet">
+	<link href="/Question-page_files/style.css" rel="stylesheet">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="/Question-page_files/bootstrap.css">
+  <script src="/Question-page_files/jquery.js"></script>
+	<script src="/Question-page_files/bootstrap.js"></script>
+	
+<!-- Custom CSS -->
+	<style type="text/css">
+		.ui.main.container {
+			margin-top: 4em;
+      
+
+		}
+		.ui.card {width: 100%;border-radius: 0;
+    }
+	</style>
+		<style type="text/css">
+	.card-list-soal .ui.button { margin-bottom: 10px;  }
+	.card-list-soal {
+		position: fixed;
+		top: 8%;
+		height: auto;
+		right: 0;
+		max-width: 260px;
+		background: white;
+		box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+		overflow-y:hidden;
+    color:cornflowerblue !important;
+	}
+	.card-list-soal .soal {
+		padding-top: 10px;
+		height: auto;
+		max-height: 50vh;
+		overflow-y: scroll;
+    
+	}
+	.button-list-soal {
+		position: fixed;
+		top: 30%;
+		right: 0;
+		padding: 50px;
+		background:cornflowerblue;
+		color: white;
+		text-align: right;
+		cursor: pointer;
+		box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+		font-size: 0.9em;
+    
+	}
+	.ui.label { border-radius: 0; }
+	.ui.form.opsi { margin-top: 20px; }
+	.opsi { margin-bottom: 15px;position: relative; }
+	.opsi input[type="radio"] {
+	    display:none;
+	}
+	.opsi label.abjad {
+		font-size: 0.8em;
+	    display: inline-block;
+	    border: 1px solid #2185d0;
+	    border-radius: 50%;
+		height: auto;
+	    padding: 3px 8px;
+		float: left;
+		margin-right: 10px;
+    
+	}
+	.opsi label.abjad:hover { background: #2185d0;cursor: pointer; }
+	.opsi label.abjad:hover + .opsi { background: #2185d0;cursor: pointer; }
+	.opsi input[type="radio"]:checked + label.abjad {
+		background:#2185d0 !important;
+		color:#2185d0 !important;
+	}
+	.opsi label.isi {
+		display: block;
+		width: 90%;
+		margin-left: 35px;
+		padding-top: 5px;
+    
+	}
+      .description{
+		padding-left: 30px;
+        
+	}
+      .header{
+
+        
+        padding-top:11px !important;
+      }
+      .nav-soal{
+        padding-bottom:17px !important
+      }
+      
+				
+			
+	</style>
+	<script type="text/javascript">
+                function accessCookie(cookieName)
+                {
+                var name = cookieName + "=";
+                var allCookieArray = document.cookie.split(';');
+                for(var i=0; i<allCookieArray.length; i++)
+                {
+                        var temp = allCookieArray[i].trim();
+                        if (temp.indexOf(name)==0)
+                        return temp.substring(name.length,temp.length);
+                        }
+                        return "";
+                }
+                function checkCookie()
+                {
+                var user = accessCookie("User_Id");
+                if (user=="")
+                window.location="/login-register";
+                }
+        </script>	
+</head>
+<body onload="checkCookie()">
+'''
+#first lets check that is even the user logedin 
+
+print(bodyupper)
+
+#now the user is logedin then letus check if the userid and testid exist in database
+#Database data
+username='root'
+password='vijay'
+database_name='project1'
+host='localhost'
+
+# Now connecting the Database
+conn=mysql.connect(user=username,password=password,database=database_name,host=host)
+
+# Now generating a SQL language cursor 
+cur = conn.cursor()
+
+# gat value from form
+form = cgi.FieldStorage()
+user_id =form.getvalue('userid')
+test_id =form.getvalue('testid')
+
+cur.execute("Select * from userInfo where user_id ="+user_id)
+userdata=cur.fetchone()
+cur.execute("Select * from testInfo where test_id ="+test_id)
+testdata=cur.fetchone()
+
+# Also updated the user score of this test in database
+sql='INSERT INTO userScore (user_id, test_id, score) VALUES (%s, %s, %s)'
+val=(user_id,test_id,'0')
+cur.execute(sql,val)
+conn.commit()
+conn.close()
+#Mysql connectivity is not required now
+
+if len(userdata)<=0 or len(testdata) <=0:
+    print("Error :- Either user does not exist or test does not exist")
+    print('<meta http-equiv = "refresh" content = "3; url = /" />')
+
+
+# Now everything is valid now lets start printing the questions and options
+
+bodymid='''
+  <header id="header" class="header header-hide cust">
+    <div class="container">
+
+      <div id="logo" class="pull-left">
+				<h1><a href="#body" class="scrollto"><span>QUIZ</span>Mania</a></h1>
+        <!-- Uncomment below if you prefer to use an image logo -->
+				<!-- <a href="#body"><img src="img/logo.png" alt="" title="" /></a>-->
+      </div>
+				<div class="dropdown pull-right">
+					<button class="btn btn-default dropdown-toggle" type="button" id="menu1">Hi There "kcuh bhi"</button>
+				</div>		
+				<script>
+				document.getElementById("menu1").innerHTML = "Hi There "+ accessCookie("User_Name");
+				</script>	
+      </div>
+  </header><!-- #header -->
+
+		
+	<br>
+	<br>
+	<br>
+	<!-- Page Content -->
+		<div class="ui dimmer page" style="z-index: 103;">
+		<div class="ui text loader" style="margin-top: 250px;">Loading</div>
+	</div>
+	<div class="ui main container">
+		<form class="ui form opsi" method="post" action="/cgi-bin/check">
+'''
+print(bodymid)
+
+#opening test document
+
+paper=open("tests/"+testdata[2],'r')
+
+#now printing questions 
+
+ques='''
+<div class="ui card">
+			<div class="content">
+				<div class="ui header">
+				Questions : <span data-position="bottom right" data-tooltip="Nomor Soal Saat Ini" class="ui blue label">%d</span>
+
+					<div style="float: right;">
+
+							<div class="menu">
+
+							</div>
+						</div>
+
+
+					</div>
+				</div>
+
+				<div class="ui divider"></div>
+			
+				<div class="description" padding-left="30;">
+                <p>%s</p>
+'''
+
+option='''
+<div class="opsi">
+	<input type="radio" name="%s" class="opsi" id="%s" value="%d">
+	<label class="abjad" for="%s">%s</label>
+	<label class="isi">%s</label>
+</div>
+'''
+i=1
+for line in paper:
+    if len(line.split())<=0 or "#"==line[0] :
+        continue
+    else:
+        question=line.split("::")[0]
+        print(ques%(i,question))
+        #time for printing options
+        o=0
+        for opt in line.split("::")[1].split(): # Options are after questions
+            id=chr(97 + o)+str(i)
+            print(option%("ques"+str(i),id,o+1,id,chr(65 +o),opt))
+            o+=1
+        i+=1
+    print("</div></div>")
+
+#submit button and hidden input are remaining
+print('<input type="hidden" name="testid" value="%s">'%(test_id))
+print('<input type="hidden" name="userid" value="%s">'%(user_id))
+print('<input type="hidden" name="questions" value="%s">'%(str(i)))  
+# this will be used to determine score per question
+
+button='''
+<div class="nav-soal center aligned">
+						<center>
+						<button class="btn btn-success " type="submit">
+						  <i class="chevron right icon"></i>
+						  Submit
+						</button>
+						</center>
+						
+					</div>
+
+'''
+
+print(button)
+
+# now rest of the page 
+bodybottom='''
+</form>
+		</div>
+	
+
+
+	<!-- Page Footer -->
+
+	<!-- Required JavaScript -->
+	<script src="Question-page_files/jquery-3.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+	<script type="text/javascript" src="Question-page_files/semantic.js"></script>
+	
+	<!-- Custom JavaScript -->
+	<script type="text/javascript">
+	$(document).ready(function(){
+		$('.ui.dropdown').dropdown();
+		$('.message .close').on('click', function() {
+		    $(this).closest('.message').transition('fade');
+		});
+	});
+	</script>
+		<script type="text/javascript">
+	$(document).ready(function(){
+		$('.ui.dimmer.page').removeClass('active');
+
+		var intervalAnim = 700;
+		$('#close-list-soal').click(function(){
+			$('.card-list-soal').fadeOut(intervalAnim);
+			$('.button-list-soal').fadeIn(intervalAnim);
+		});	
+		$('.button-list-soal').click(function(){
+			$('.card-list-soal').fadeIn(intervalAnim);
+			$('.button-list-soal').fadeOut(intervalAnim);
+		});
+
+		$('#btn-ragu').click(function(){
+			if ( $('#checkbox-ragu').attr('checked') ) {
+				$('#checkbox-ragu').removeAttr('checked');
+			} else {
+				$('#checkbox-ragu').attr('checked', '');
+			}
+		});
+
+		$(window).scroll(function() {
+		  if( $(document).scrollTop() > $('.navbar').height() ) {
+		    $('#waktu-nav').css({'display':'flex'});
+		  } else {
+				$('#waktu-nav').css({'display':'none'});
+		  }
+		});
+
+	});
+	</script>
+
+
+</body></html>
+'''
+
+print(bodybottom)
+

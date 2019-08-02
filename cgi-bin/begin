@@ -1,0 +1,73 @@
+#!/usr/bin/python3
+import cgi
+import mysql.connector as mysql
+                                                        
+
+# RDS information                                                                  
+username='root'                                                                    
+password='vijay'                                                                   
+database_name='project1'                                                           
+host='localhost'                                                                   
+# THE MAGIC LINE
+print("Content-type: text/html\r\n\r\n")  
+
+#First lets check if the user is even loggedin or not
+website='''
+<!DOCTYPE html>                                                                    
+<html>                                                                             
+<head>                                                                             
+        <meta charset="utf-8">                                                     
+        <meta name="viewport" content="width=device-width,initial-scale=1">        
+        <title>Lowin</title>                                                       
+        <link rel="stylesheet" href="auth.css">                                    
+                                                                                   
+        <script type="text/javascript">                                            
+                function accessCookie(cookieName)                                  
+        {                                                                          
+          var name = cookieName + "=";                                             
+          var allCookieArray = document.cookie.split(';');                         
+          for(var i=0; i<allCookieArray.length; i++)                               
+          {                                                                        
+            var temp = allCookieArray[i].trim();                                   
+            if (temp.indexOf(name)==0)                                             
+            return temp.substring(name.length,temp.length);                        
+          }                                                                        
+                return "";                                                         
+        }                                                                          
+                function checkCookie()                                             
+        {                                                                          
+          var user = accessCookie("User_Id");                                      
+          if (user=="")                                                            
+                window.location="http://13.127.254.208/login-register";;                         
+          }                                                                        
+        </script>                                                                  
+                                                                                   
+</head>
+<body onload="checkCookie()">
+                                                                            
+'''
+print(website)
+
+                                                                                   
+# Now connecting the Database                                                      
+conn=mysql.connect(user=username,password=password,database=database_name,host=host
+)                                                                                  
+                                                                                   
+# Now generating a SQL language cursor                                             
+cur = conn.cursor()                                                                
+                                                                                   
+# get value from form                                                              
+
+form = cgi.FieldStorage()    
+test_id=str(form.getvalue('testid'))
+user_id=str(form.getvalue('userid'))
+                                                     
+cur.execute('Select * from userInfo where user_id='+user_id+'')
+userinfo=cur.fetchone()
+cur.execute('Select test_name from testInfo where test_id='+test_id)
+testname=cur.fetchone()
+print("<h3> Hi There "+userinfo[1]+" "+userinfo[2]+" you have selected test: "+testname[0]+" , visit link below to give this test</br>")
+print('<form method="post" action="/cgi-bin/testpage">')
+print('<input type="hidden" name="userid" value="'+user_id+'">')
+print('<input type="hidden" name="testid" value="'+test_id+'">')
+print('<input type="submit" value="Test" ></form>')
