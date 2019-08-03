@@ -51,13 +51,50 @@
 		else
 			{
 				document.getElementById("menu1").innerHTML = "Hi There "+ accessCookie("User_Name");
+        
+
+        var foo = function(){
+        var button = document.createElement('button');
+        button.innerHTML = 'logout';
+        button.onclick = function(){
+          document.getElementById("clearCookies").onclick = clearListCookies;
+        };
+        // where do we want to have the button to appear?
+        // you can append it to another element just by doing something like
+        document.getElementById('menu1').appendChild(button);
+
+        };
+
+
 			}
 		}
 		function setuser()
 		{
 		 document.getElementById("userID").setAttribute("value",accessCookie("User_Id"));
 		}                                                                                                                                                       
-        </script>                                                                                                                                                       
+        </script>                              
+        <script type="text/javascript">
+          function clearListCookies()
+      {   
+        var cookies = document.cookie.split(";");
+        for (var i = 0; i < cookies.length; i++)
+        {   
+         var spcook =  cookies[i].split("=");
+         deleteCookie(spcook[0]);
+       }
+        function deleteCookie(cookiename)
+        {
+         var d = new Date();
+         d.setDate(d.getDate() - 1);
+         var expires = ";expires="+d;
+          var name=cookiename;
+         //alert(name);
+         var value="";
+         document.cookie = name + "=" + value + expires + "; path=/acc/html";                    
+      }
+       window.location = ""; // TO REFRESH THE PAGE
+      }
+        </script>                                                                                                                         
 </head>
 
 <body>
