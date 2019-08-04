@@ -145,6 +145,18 @@ bodyupper='''
 
 print(bodyupper)
 
+form = cgi.FieldStorage()
+user_id =form.getvalue('userid')
+test_id =form.getvalue('testid')
+
+if user_id==None or test_id==None:
+	print('<script>document.body.style.backgroundColor = "#000000";</script>')
+	print('<center><img src="/img/giphy.gif"></img>')
+	print('<h1><font color="#03fca9" face="verdana">Invalid Inputs</font></h1>')
+	print('<meta http-equiv = "refresh" content = "3; url = /" />')
+	print("</center></body></html>")
+	exit(0)
+	
 #now the user is logedin then letus check if the userid and testid exist in database
 #Database data
 username='root'
@@ -159,17 +171,7 @@ conn=mysql.connect(user=username,password=password,database=database_name,host=h
 cur = conn.cursor()
 
 # get value from form
-form = cgi.FieldStorage()
-user_id =form.getvalue('userid')
-test_id =form.getvalue('testid')
 
-if user_id==None or test_id==None:
-	print('<script>document.body.style.backgroundColor = "#000000";</script>')
-	print('<center><img src="/img/giphy.gif"></img>')
-	print('<h1><font color="#03fca9" face="verdana">Invalid Inputs</font></h1>')
-	print('<meta http-equiv = "refresh" content = "3; url = /" />')
-	print("</center></body></html>")
-	exit(0)
 cur.execute("Select * from userInfo where user_id ="+user_id)
 userdata=cur.fetchone()
 cur.execute("Select * from testInfo where test_id ="+test_id)

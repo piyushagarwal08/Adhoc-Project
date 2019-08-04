@@ -27,6 +27,7 @@
 
   <!-- Main Stylesheet File -->
   <link href="css/style.css" rel="stylesheet">
+  
   <script type="text/javascript">                                                                                                                                 
     function accessCookie(cookieName)                                                                                                                       
     {                                                                                                                                                       
@@ -51,41 +52,25 @@
     else
       {
         document.getElementById("menu1").innerHTML = "Logout";
-        document.getElementById("menu1").setAttribute("onclick", "clearListCookies()"); 
+        document.getElementById("menu1").setAttribute("onclick", "deleteCookie1()");
+        
+        
       }
    }
     function setuser()
     {
     document.getElementById("userID").setAttribute("value",accessCookie("User_Id"));
     }                                                                                                                                                       
-</script>                              
-<script type="text/javascript">
 
-    function deleteCookie(cookiename)
+    function deleteCookie1()  
+{   var Cookies=document.cookie.split(';');
+    for (var i=1; i <=Cookies.length; i++)
     {
-        var d = new Date();
-        d.setDate(d.getDate() - 1);
-        var expires = ";expires="+d;
-        var name=cookiename;
-        //alert(name);
-        var value="";
-        document.cookie = name + "=" + value + expires + "; path=/acc/html"; 
-                    
+    document.cookie=Cookies[i-1] +"= ; expires=Thu, 02 Aug 2018 00:00:00 UTC;path=/;";  
     }
-
-
-    function clearListCookies()
-    {   
-    var cookies = document.cookie.split(";");
-    for (var i = 0; i < cookies.length; i++)
-        {   
-            var spcook =  cookies[i].split("=");
-            deleteCookie(spcook[0]);
-        }
-      window.location = "/"; // TO REFRESH THE PAGE       
-    }
-    
-</script>
+    window.location = "/"; // TO REFRESH THE PAGE       
+}     
+</script>                              
                                                                                                                                                                    
 </head>
 
@@ -100,7 +85,8 @@
                                 <!-- <a href="#body"><img src="img/logo.png" alt="" title="" /></a>-->
       </div>
                                 <div class="dropdown pull-right">
-                                        <button onclick="window.location.href='/';"  class="btn btn-info" type="button" id="menu1" >Login</button>
+                                        <button onclick="deleteCookie1()"  class="btn btn-info" type="button" id="menu1" >Login</button>
+                                        
                                 </div>
 				<script>
                                 checkCookie();
