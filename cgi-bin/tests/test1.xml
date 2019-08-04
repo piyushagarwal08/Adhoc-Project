@@ -1,7 +1,0 @@
-# Format of question and answer is :- 
-# question '::' options "seprated by space" currently there is no limit of options can be 2,3,4,6 etc. But atleast one option  is required or program will stop.
-
-Hi there this page is dyanmic in nature ? :: opt1 opt2 opt3 opt4 :: 1
-
-All these questions are generated from a a text documet ? :: ANS op1 op2 op3 op4 :: 1 
-

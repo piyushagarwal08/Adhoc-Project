@@ -8,135 +8,44 @@ print("Content-type: text/html\r\n\r\n")
 
 bodyupper='''
 <!DOCTYPE html>
-<html lang="en"><head>
-<meta http-equiv="content-type" content="text/html; charset=UTF-8">
-	<!-- Title Page -->
-	<title>Welcome to the Quiz</title>
-
-	<!-- Meta -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-
-	<!-- Required CSS -->
-	<link rel="stylesheet" type="text/css" href="/Question-page_files/semantic.css">
-	<link href="/Question-page_files/bootstrap_002.css" rel="stylesheet">
-	<link href="/Question-page_files/style.css" rel="stylesheet">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="/Question-page_files/bootstrap.css">
-  <script src="/Question-page_files/jquery.js"></script>
-	<script src="/Question-page_files/bootstrap.js"></script>
-	
-<!-- Custom CSS -->
-	<style type="text/css">
-		.ui.main.container {
-			margin-top: 4em;
-      
-
-		}
-		.ui.card {width: 100%;border-radius: 0;
-    }
-	</style>
-		<style type="text/css">
-	.card-list-soal .ui.button { margin-bottom: 10px;  }
-	.card-list-soal {
-		position: fixed;
-		top: 8%;
-		height: auto;
-		right: 0;
-		max-width: 260px;
-		background: white;
-		box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
-		overflow-y:hidden;
-    color:cornflowerblue !important;
-	}
-	.card-list-soal .soal {
-		padding-top: 10px;
-		height: auto;
-		max-height: 50vh;
-		overflow-y: scroll;
-    
-	}
-	.button-list-soal {
-		position: fixed;
-		top: 30%;
-		right: 0;
-		padding: 50px;
-		background:cornflowerblue;
-		color: white;
-		text-align: right;
-		cursor: pointer;
-		box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
-		font-size: 0.9em;
-    
-	}
-	.ui.label { border-radius: 0; }
-	.ui.form.opsi { margin-top: 20px; }
-	.opsi { margin-bottom: 15px;position: relative; }
-	.opsi input[type="radio"] {
-	    display:none;
-	}
-	.opsi label.abjad {
-		font-size: 0.8em;
-	    display: inline-block;
-	    border: 1px solid #2185d0;
-	    border-radius: 50%;
-		height: auto;
-	    padding: 3px 8px;
-		float: left;
-		margin-right: 10px;
-    
-	}
-	.opsi label.abjad:hover { background: #2185d0;cursor: pointer; }
-	.opsi label.abjad:hover + .opsi { background: #2185d0;cursor: pointer; }
-	.opsi input[type="radio"]:checked + label.abjad {
-		background:#2185d0 !important;
-		color:#2185d0 !important;
-	}
-	.opsi label.isi {
-		display: block;
-		width: 90%;
-		margin-left: 35px;
-		padding-top: 5px;
-    
-	}
-      .description{
-		padding-left: 30px;
-        
-	}
-      .header{
-
-        
-        padding-top:11px !important;
-      }
-      .nav-soal{
-        padding-bottom:17px !important
-      }
-      
-				
-			
-	</style>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1">
+	<title>QuizMania</title>
+  <link rel="stylesheet" href="/login-register/auth.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
 	<script type="text/javascript">
-                function accessCookie(cookieName)
-                {
-                var name = cookieName + "=";
-                var allCookieArray = document.cookie.split(';');
-                for(var i=0; i<allCookieArray.length; i++)
-                {
-                        var temp = allCookieArray[i].trim();
-                        if (temp.indexOf(name)==0)
-                        return temp.substring(name.length,temp.length);
-                        }
-                        return "";
-                }
-                function checkCookie()
-                {
-                var user = accessCookie("User_Id");
-                if (user=="")
-                window.location="/login-register";
-                }
-        </script>	
-</head>
-<body onload="checkCookie()">
+    		function accessCookie(cookieName)
+  		{
+    		var name = cookieName + "=";
+    		var allCookieArray = document.cookie.split(';');
+    		for(var i=0; i<allCookieArray.length; i++)
+    		{
+      			var temp = allCookieArray[i].trim();
+      			if (temp.indexOf(name)==0)
+        		return temp.substring(name.length,temp.length);
+    			}
+    			return "";
+  		}
+    		function checkCookie()
+  		{
+  		var user = accessCookie("User_Id");
+  		if (user=="")
+    		window.location="/login-register";
+  		}
+	</script>
+</head >
+
+<body onload="checkCookie()" style="background:#71c55d">
+  
+  <div class="lowin">
+		
+		<div class="lowin-wrapper">
+			<div class="lowin-box lowin-login">
+				<div class="lowin-box-inner">
+          <div class="panel panel-default" style="text-align:center">
+
 '''
 #first lets check that is even the user logedin 
 
@@ -159,8 +68,17 @@ cur = conn.cursor()
 form = cgi.FieldStorage()
 user_id =form.getvalue('userid')
 test_id =form.getvalue('testid')
-NOQ=int(form.getvalue('questions'))
+NOQ=form.getvalue('questions')
 
+if user_id==None or test_id==None or NOQ==None:
+	print('<script>document.body.style.backgroundColor = "#000000";</script>')
+	print('<center><img src="/img/giphy.gif"></img>')
+	print('<h1><font color="#03fca9" face="verdana">Invalid Inputs</font></h1>')
+	#print('<meta http-equiv = "refresh" content = "3; url = /" />')
+	print("</center></body></html>")
+	exit(0)
+
+NOQ=int(NOQ)
 # lets get user and test data from database
 
 cur.execute("Select * from userInfo where user_id ="+user_id)
@@ -189,13 +107,46 @@ for line in paper:
 				score+=weight
 	i+=1 
 
-print(" Hi There %s . In the exam of %s you have scored %d "%(userdata[1],testdata[1],score))
+# This is the code which display result
+resultdata='''
+<div class="panel-heading"><h2><span class="label label-success">Hi, %s</span></h2></div>
+            
+            <div class="panel-body">
+              
+              <h4> Your Score : <span class="badge"><h5>%d</h5></span></h4>
+            </div>
+            <button type="button" onclick="window.location.href='/';" class="btn btn-primary">Continue</button> 
+            <br>
+            <br>
+          </div>
+			</div>
+
+			
+					
+				</div>
+			</div>
+		</div>
+	
+		<footer class="lowin-footer">
+			
+		</footer>
+	</div>
+
+	
+	
+</body>
+</html>
+'''
+
+
+
+print(resultdata%(userdata[1],score))
 
 # Also updating the user score of this test in database
-sql='INSERT INTO userScore (user_id, test_id, score) VALUES (%s, %s, %s)'
-val=(user_id,test_id,str(score))
-#cur.execute(sql,val)
-#conn.commit()
+sql='Update userScore set score=%s where user_id=%s and test_id=%s'
+val=(str(score),user_id,test_id)
+cur.execute(sql,val)
+conn.commit()
 conn.close()
 
 
