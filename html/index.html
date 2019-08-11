@@ -59,7 +59,11 @@
    }
     function setuser()
     {
-    document.getElementById("userID").setAttribute("value",accessCookie("User_Id"));
+      var elements = document.getElementsByClassName("userID");
+      var names = '';
+      for(var i=0; i<elements.length; i++) {
+        elements[i].setAttribute("value",accessCookie("User_Id"));
+        }
     }                                                                                                                                                       
 
     function deleteCookie1()  
@@ -125,36 +129,39 @@
 
     <div class="container">
       <div class="row">
-<div class="col-md-6 col-lg-3">
+        
+       <div class="col-md-6 col-lg-3">
           <form action="/cgi-bin/testpage" method="post">
-            <input type="hidden" id ="userID" name="userid" value="">
+            <input type="hidden" class ="userID" name="userid" value="">
             <input type="hidden" name="testid" value="1">
             <button type="submit" style="background-color: transparent; color: white;">
           <div class="feature-block" >
             <img src="img/docker.svg" alt="img" class="img-fluid">
             
-            <h4>Docker</h4>
-            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry</p>
+            <h4>Demo</h4>
+            <p>This is the demo test, This page will explain whats going on</p>
           </div>
         </button>
         </div>
       </form>
-      <script>
-        setuser();
-      </script>
+      
 
 
         <div class="col-md-6 col-lg-3">
-          <div class="feature-block">
-
-            <img src="img/AWS.jpg" width="85" height="90">
-            <br>
-            <h4>Ansible</h4>
-
-
-            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry</p>
+            <form action="/cgi-bin/testpage" method="post">
+              <input type="hidden" class ="userID" name="userid" value="">
+              <input type="hidden" name="testid" value="2">
+              <button type="submit" style="background-color: transparent; color: white;">
+            <div class="feature-block" >
+              <img src="img/AWS.jpg" alt="img" class="img-fluid">
+              
+              <h4>EC-2</h4>
+              <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry</p>
+            </div>
+          </button>
           </div>
-        </div>
+        </form>
+        
 
         <div class="col-md-6 col-lg-3">
           <div class="feature-block">
@@ -209,7 +216,10 @@
       </div>
     </div>
   </section>
-
+  
+  <script>
+      setuser();
+  </script>
 
   <a href="#" class="back-to-top"><i class="fa fa-chevron-up"></i></a>
 

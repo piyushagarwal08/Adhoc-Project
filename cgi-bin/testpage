@@ -114,7 +114,73 @@ bodyupper='''
       .nav-soal{
         padding-bottom:17px !important
       }
-      
+
+		.container {
+  display: block;
+  position: relative;
+  padding-left: 35px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  font-size: 11px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* Hide the browser's default checkbox */
+.container input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+/* Create a custom checkbox */
+.checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 25px;
+  width: 25px;
+  background-color: #eee;
+}
+
+/* On mouse-over, add a grey background color */
+.container:hover input ~ .checkmark {
+  background-color: #ccc;
+}
+
+/* When the checkbox is checked, add a blue background */
+.container input:checked ~ .checkmark {
+  background-color: #2196F3;
+}
+
+/* Create the checkmark/indicator (hidden when not checked) */
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+/* Show the checkmark when checked */
+.container input:checked ~ .checkmark:after {
+  display: block;
+}
+
+/* Style the checkmark/indicator */
+.container .checkmark:after {
+  left: 9px;
+  top: 5px;
+  width: 5px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 3px 3px 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+}  
 				
 			
 	</style>
@@ -241,7 +307,7 @@ print(bodymid%(userdata[1],testdata[1]))
 
 #opening test document
 
-paper=open("tests/"+testdata[2],'r')
+paper=open("tests/"+testdata[2],'r', encoding="utf8")
 
 #now printing questions 
 
@@ -268,28 +334,55 @@ ques='''
                 <p>%s</p>
 '''
 
-option='''
-<div class="opsi">
-	<input type="radio" name="%s" class="opsi" id="%s" value="%d">
-	<label class="abjad" for="%s">%s</label>
-	<label class="isi">%s</label>
-</div>
+option_print='''
+
+	 	<label class="container"  >%s
+  		<input type="checkbox"  name="%s" id="%s" value="%s">
+  		<span class="checkmark"></span>
+		</label>
 '''
 i=1
+option=0
+
 for line in paper:
-    if len(line.split())<=0 or "#"==line[0] :
-        continue
-    else:
-        question=line.split("::")[0]
-        print(ques%(i,question))
-        #time for printing options
-        o=0
-        for opt in line.split("::")[1].split(): # Options are after questions
-            id=chr(97 + o)+str(i)
-            print(option%("ques"+str(i),id,o+1,id,chr(65 +o),opt))
-            o+=1
-        i+=1
-    print("</div></div>")
+	if len(line.split())<=0 or "#"==line[0] :
+		continue
+	else:
+		line=line.strip()
+
+	if option:
+		if '.' not in line or len(line.split('.'))<2:
+			print("There is some error in this test page, Please notify admin about it.")
+			exit(3)
+				
+		if line.split('.')[0]=='Ans':
+			print("</div></div>")
+			i+=1
+			option=0
+			continue
+		
+		else:
+			value=line.split('.')[0]
+			opt=line.split('.')[1]
+			ide=chr(97+option -1)+str(i)
+			print(option_print%(opt,"ques"+str(i),ide,value))
+			option+=1
+			continue
+	
+	check=str(i)+")"
+
+	if check==line[:len(check)]:
+		question=line[len(check):]
+		print(ques%(i,question))
+		option=1
+		continue
+	else:
+		print("</br>"+line+"</br>")
+		print("There is some error in this test page, Please notify admin aout it.")
+		exit(2)
+
+#No need of testfile anymore
+paper.close()
 
 #submit button and hidden input are remaining
 print('<input type="hidden" name="testid" value="%s">'%(test_id))

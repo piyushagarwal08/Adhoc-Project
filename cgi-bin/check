@@ -74,7 +74,7 @@ if user_id==None or test_id==None or NOQ==None:
 	print('<script>document.body.style.backgroundColor = "#000000";</script>')
 	print('<center><img src="/img/giphy.gif"></img>')
 	print('<h1><font color="#03fca9" face="verdana">Invalid Inputs</font></h1>')
-	#print('<meta http-equiv = "refresh" content = "3; url = /" />')
+	print('<meta http-equiv = "refresh" content = "3; url = /" />')
 	print("</center></body></html>")
 	exit(0)
 
@@ -87,7 +87,7 @@ cur.execute("Select * from testInfo where test_id ="+test_id)
 testdata=cur.fetchone()
 
 #testpaper 
-paper=open("tests/"+testdata[2],'r')
+paper=open("tests/"+testdata[2],'r', encoding="utf8")
 
 #lets set the score 0 
 
@@ -96,16 +96,59 @@ score=0
 NOQ=NOQ-1
 weight=int(int(testdata[3])/NOQ)
 i=1
+option=0 # this variable is used to determine that if we are inside a question, Inside a question means that we have selected a 
+#question and now we are looking for its ans.
 for line in paper:
-	if len(line.split())<=0 or "#"==line[0] :
+	
+	if len(line.split())<=0 or "#"==line[0] : # skiping empty and comment line
 		continue
 	else:
-		ans=line.split("::")[2]
-		if form.getvalue("ques"+str(i)):
-			got=str(form.getvalue("ques"+str(i)))
-			if int(got)==int(ans):
-				score+=weight
-	i+=1 
+		line=line.strip()
+
+	if option: # already described above
+		if '.' not in line or len(line.split('.'))<2:
+			print("</br>There is some error in this result page, Please notify admin about it.")
+			exit(3)
+				
+		if line.split('.')[0]=='Ans': # we are looking for a specific line which contain answer
+			ans=line.split('.')[1]
+			got=form.getvalue("ques"+str(i))
+			if got==None:
+				i+=1
+				option=0
+				continue
+			if len(ans.split(','))>1:
+				correct_no=len(ans.split(','))
+				opt_weight=weight/correct_no
+				for op in got :
+					if op in ans.strip().split(','):
+						score+=opt_weight
+				option=0
+				i+=1
+				continue
+			else:
+				if  ans.strip()==got:
+					score+=weight
+				option=0
+				i+=1
+				continue
+		else:
+			continue
+	check=str(i)+")"
+	if check==line[:len(check)]:
+		option=1
+		continue
+	else:
+		print("#There is some error in this result page, Please notify admin aout it.")
+		exit(2)
+
+
+
+#No need of testfile anymore
+paper.close()
+
+#lets round of score
+score=round(score)
 
 # This is the code which display result
 resultdata='''
