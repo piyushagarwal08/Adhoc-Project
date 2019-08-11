@@ -1,6 +1,0 @@
-# Format of question and answer is :- 
-# question '::' options "seprated by space" currently there is no limit of options can be 2,3,4,6 etc. But atleast one option  is required or program will stop.
-
-this is question no 1 ? :: opt1 opt2 opt3 opt4
-
-this is question no 2 ? :: ANS op1 op2 op3 op4

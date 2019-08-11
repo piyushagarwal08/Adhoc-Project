@@ -10,8 +10,8 @@
 
 	<!-- Required CSS -->
 	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css">
-	<link href="lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-	<link href="css/style.css" rel="stylesheet">
+	<link href="/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+	<link href="/css/style.css" rel="stylesheet">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
@@ -106,32 +106,44 @@
 				
 			
 	</style>
-
+	<script type="text/javascript">
+                function accessCookie(cookieName)
+                {
+                var name = cookieName + "=";
+                var allCookieArray = document.cookie.split(';');
+                for(var i=0; i<allCookieArray.length; i++)
+                {
+                        var temp = allCookieArray[i].trim();
+                        if (temp.indexOf(name)==0)
+                        return temp.substring(name.length,temp.length);
+                        }
+                        return "";
+                }
+                function checkCookie()
+                {
+                var user = accessCookie("User_Id");
+                if (user=="")
+                window.location="/login-register";
+                }
+        </script>	
 </head>
-<body>
+<body onload="checkCookie()">
 	<!-- Page Header -->
 	
   <header id="header" class="header header-hide cust">
     <div class="container">
 
       <div id="logo" class="pull-left">
-				<h1><a href="#body" class="scrollto"><span>e</span>Startup</a></h1>
+				<h1><a href="#body" class="scrollto"><span class="label label-success">Quiz</span><span class="label label-primary">Mania</span></a></h1>
         <!-- Uncomment below if you prefer to use an image logo -->
 				<!-- <a href="#body"><img src="img/logo.png" alt="" title="" /></a>-->
       </div>
 				<div class="dropdown pull-right">
-					<button class="btn btn-default dropdown-toggle" type="button" id="menu1" data-toggle="dropdown">Tests</button>
-					<ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
-						<li role="presentation"><a role="menuitem" tabindex="-1" href="#">Docker</a></li>
-						<li role="presentation"><a role="menuitem" tabindex="-1" href="#">Ansible</a></li>
-						<li role="presentation" class="divider"></li>
-						<li role="presentation"><a role="menuitem" tabindex="-1" href="#">Redhat</a></li>
-						<li role="presentation"><a role="menuitem" tabindex="-1" href="#">AWS</a></li>
-						<li role="presentation" class="divider"></li>
-						<li role="presentation"><a role="menuitem" tabindex="-1" href="#">Python</a></li>
-						
-					</ul>
-				</div>			
+					<button class="btn btn-default dropdown-toggle" type="button" id="menu1" >Tests</button>
+				</div>		
+				<script>
+				document.getElementById("menu1").innerHTML = "Hi There "+ accessCookie("User_Name");
+				</script>	
       </div>
   </header><!-- #header -->
 
@@ -140,10 +152,14 @@
 	<br>
 	<br>
 	<!-- Page Content -->
+	<div style="text-align:center">
+		<h2><span class="label label-success">Test Name : NameOoPedia</span></h2>
+	</div>
 		<div class="ui active dimmer page" style="z-index: 103;">
 		<div class="ui text loader" style="margin-top: 250px;">Loading</div>
 	</div>
 	<div class="ui main container">
+		<form class="ui form opsi" action="www.google.com">
 		<div class="ui card">
 			<div class="content">
 				<div class="ui header" >
@@ -161,10 +177,10 @@
 				</div>
 
 				<div class="ui divider"></div>
-
+			
 				<div class="description" padding-left=30;>
 					<p >Which technology is used for automation?</p>
-					<form class="ui form opsi">
+					
 
 						<div class="opsi">
 							<input type="radio" name="opsi" class="opsi" id="a">
@@ -189,32 +205,78 @@
 							<label class="abjad" for="d">D</label>
 							<label class="isi">Linux</label>
 						</div>
-            </div>
-
-
-            
-
-
-					</form>
-
-					<div class="ui divider"></div>
-
-					<div class="nav-soal center aligned">
-
-						<button class="btn btn-success " >
-						  <i class="chevron right icon" ></i>
-						  Next
-						</button>
+						</div>
 						
-						<button class="btn btn-success " >
+					
+
+					
+					</div>
+					<div class="ui card">
+						<div class="content">
+							<div class="ui header" >
+							Questions : <span data-position="bottom right" data-tooltip="Nomor Soal Saat Ini" class="ui blue label">2</span>
+			
+								<div style="float: right;">
+			
+										<div class="menu">
+			
+										</div>
+									</div>
+			
+			
+								</div>
+							</div>
+			
+							<div class="ui divider"></div>
+			
+							<div class="description" padding-left=30;>
+								<p >Which technology is used for automation?</p>
+
+								
+			
+									<div class="opsi">
+										<input type="radio" name="opsi" class="opsi" id="a2">
+										<label class="abjad" for="a2">A</label>
+										<label class="isi">Ansible</label>
+									</div>
+			
+									<div class="opsi">
+										<input type="radio" name="opsi" class="opsi" id="b2">
+										<label class="abjad" for="b2">B</label>
+										<label class="isi">Docker</label>
+									</div>
+			
+									<div class="opsi">
+										<input type="radio" name="opsi" class="opsi" id="c2">
+										<label class="abjad" for="c2">C</label>
+										<label class="isi">Devops</label>
+									</div>
+			
+									<div class="opsi">
+										<input type="radio" name="opsi" class="opsi" id="d2">
+										<label class="abjad" for="d2">D</label>
+										<label class="isi">Linux</label>
+									</div>
+									</div>
+									
+								
+			
+								
+			
+						</div>
+					<div class="nav-soal center aligned">
+						<center>
+						<button class="btn btn-success " type="submit" >
 						  <i class="chevron right icon" ></i>
 						  Submit
 						</button>
+						</center>
 						
 					</div>
 
-				</div>
-			</div>
+				
+			
+			</form>
 		</div>
 	</div>
 
