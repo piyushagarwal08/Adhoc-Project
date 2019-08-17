@@ -64,6 +64,10 @@ c['Email']['path']='/'
 c['User_Id']=data[0]
 c['User_Id']['path']='/'
 
+if user_email=="root@linux.com":
+	c['sKey']='RqEtSkwaLw'
+	c['sKey']['path']='/cgi-bin/'
+ 
 print(c)
 
 #print The magic line

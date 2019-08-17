@@ -120,9 +120,14 @@ for line in paper:
 			if len(ans.split(','))>1:
 				correct_no=len(ans.split(','))
 				opt_weight=weight/correct_no
+				adder=0 # this will used fro multiple correct option and errors
 				for op in got :
 					if op in ans.strip().split(','):
-						score+=opt_weight
+						adder+=opt_weight
+					else:
+						adder=0
+						break
+				score+=adder
 				option=0
 				i+=1
 				continue

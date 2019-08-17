@@ -1,0 +1,437 @@
+#!/usr/bin/python3
+
+import cgi
+import mysql.connector as mysql
+
+#RDS information
+username='root'
+password='vijay'
+database_name='project1'
+host='localhost'
+
+
+
+#Magic Line
+print("Content-type: text/html\r\n\r\n")
+
+form = cgi.FieldStorage()
+
+
+upperbody='''
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Adhoc Quizmania</title>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <meta content="" name="keywords">
+  <meta content="" name="description">
+
+  <!-- Favicons -->
+  <link href="/img/favicon.png" rel="icon">
+  <link href="/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,700,700i|Roboto:100,300,400,500,700|Philosopher:400,400i,700,700i" rel="stylesheet">
+
+  <!-- Bootstrap css -->
+  <!-- <link rel="stylesheet" href="css/bootstrap.css"> -->
+  <link href="/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Libraries CSS Files -->
+  <link href="/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+  <link href="/lib/owlcarousel/assets/owl.theme.default.min.css" rel="stylesheet">
+  <link href="/lib/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+  <link href="/lib/animate/animate.min.css" rel="stylesheet">
+  <link href="/lib/modal-video/css/modal-video.min.css" rel="stylesheet">
+
+  <!-- Main Stylesheet File -->
+  <link href="/css/style.css" rel="stylesheet">
+  
+  <style>
+    
+    input[type="text"]{  
+                text-align: center; 
+            }     
+    .center {
+      
+      margin-left: auto;
+      margin-right: auto;
+      
+    }
+    
+    .image {
+      display: block;
+      width: 30%;
+      height: auto;
+      
+    }
+    
+    .overlay {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 100%;
+      width: 40%;
+      opacity: 0;
+      transition: .5s ease;
+      background-color: #71c55d;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    
+    .container:hover .overlay {
+      opacity: 1;
+    }
+    
+    .text {
+      color: white;
+      font-size: 20px;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      -webkit-transform: translate(-50%, -50%);
+      -ms-transform: translate(-50%, -50%);
+      transform: translate(-50%, -50%);
+      text-align: center;
+    }
+    </style>
+
+  <script type="text/javascript">                                                                                                                                 
+    function accessCookie(cookieName)                                                                                                                       
+    {                                                                                                                                                       
+    var name = cookieName + "=";                                                                                                                            
+    var allCookieArray = document.cookie.split(';');                                                                                                        
+    for(var i=0; i<allCookieArray.length; i++)                                                                                                              
+    {                                                                                                                                                       
+            var temp = allCookieArray[i].trim();                                                                                                            
+            if (temp.indexOf(name)==0)                                                                                                                      
+            return temp.substring(name.length,temp.length);                                                                                                 
+            }                                                                                                                                               
+            return "";                                                                                                                                      
+    }                                                                                                                                                       
+    function checkCookie()                                                                                                                                  
+    {                                                                                                                                                       
+    var user = accessCookie("User_Id");
+    var mail=accessCookie("Email");
+    var name=accessCookie("User_Name");
+    var secret=accessCookie("sKey");
+
+    if (user=="")
+      {	
+        window.location="/";
+      }		
+    else if (user==32 && mail=='"root@linux.com"' && name=='"adhoc root"' && secret=="RqEtSkwaLw")
+      {
+        document.getElementById("menu1").innerHTML = "HomePage";
+        document.getElementById("menu1").setAttribute("onclick", 'window.location="/";');
+      }
+    else
+    {
+      window.location="/";
+    }
+   }
+    
+</script>                   
+<style>
+    
+    .image1 {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+    
+    .overlay1 {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background-color: #008CBA;
+      overflow: hidden;
+      width: 100%;
+      height: 0;
+      transition: .5s ease;
+    }
+    
+    .container:hover .overlay {
+      height: 100%;
+    }
+    
+    .text {
+      color: white;
+      font-size: 20px;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      -webkit-transform: translate(-50%, -50%);
+      -ms-transform: translate(-50%, -50%);
+      transform: translate(-50%, -50%);
+      text-align: center;
+    }
+
+    table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 50%;
+}
+
+td, th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+tr:nth-child(even) {
+  background-color: #dddddd;
+}
+tr:nth-child(odd) {
+  background-color: #ffffff ;
+}
+
+    </style>           
+                                                                                                                                                                   
+</head>
+
+<body>
+
+  <header id="header" class="header header-hide">
+<div class="container">
+
+      <div id="logo" class="pull-left">
+                                <h1><a href="#body" class="scrollto"><span>QUIZ</span>MANIA</a></h1>
+        <!-- Uncomment below if you prefer to use an image logo -->
+                                <!-- <a href="#body"><img src="img/logo.png" alt="" title="" /></a>-->
+      </div>
+                                <div class="dropdown pull-right">
+                                        <button onclick="deleteCookie1()"  class="btn btn-info" type="button" id="menu1" >Login</button>
+                                        
+                                </div>
+				<script>
+                                checkCookie();
+                                </script>
+      </div>
+  </header><!-- #header -->
+
+
+  <!--==========================
+    Features Section
+  ============================-->
+
+  <section id="features" class="padd-section text-center wow fadeInUp" style="background:#71c55d">
+
+    <div class="container">
+      <div class="section-title text-center">
+        <h1 style="color: floralwhite">Admin Panel</h1>
+        <p style="color: floralwhite" class="separator">Add or Update the Quizes</p>
+      </div>
+    </div>
+
+    
+      <div class="row">
+        
+      
+        <div class="col-md-6">
+          <div class="container">
+            <img src="/img/giphy.gif" alt="img" class="image center">
+            <a href="#form1" onclick="form1()"><div class="overlay">
+              <div class="text">Add New Category Quiz</div>
+            </div>
+          </a>
+          </div>  
+        </div>
+      
+      
+        <div class="col-md-6">
+          <div class="container">
+            <img src="/img/giphy.gif" alt="img" class="image center">
+            <a href="#form1" onclick="form1()"><div class="overlay">
+              <div class="text">Add Existing Category Quiz</div>
+            </div>
+          </a>
+          </div>  
+        </div>
+        <br>
+        <div class="col-md-6">
+          <div class="container">
+            <img src="/img/giphy.gif" alt="img" class="image center">
+            <a href="#form2" onclick="form2()"><div class="overlay">
+              <div class="text">View Scoreboard</div>
+            </div>
+          </a>
+          </div>  
+        </div>
+        
+      </div>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      
+      <div id="form1" class="col-md-4 center " style="background: #71c55d; display: none">
+        <br> 
+        <br>
+        
+        <form  action="/cgi-bin/admin" enctype = "multipart/form-data" method="post">
+            
+              <input type="text" class="form-control" name="test_name" id="name" placeholder="Test Name" >
+              <input type="text" class="form-control" name ="Max_score" id="totalscore" placeholder="Total Score">
+              
+                  <div class="custom-file">
+                    <input type="file" class="custom-file-input" name="test_image" id="customFile1">
+                    <label class="custom-file-label" for="customFile">Choose Image</label>
+                  </div>
+                  <div class="custom-file">
+                      <input type="file" class="custom-file-input" name="test_page" id="customFile2">
+                      <label class="custom-file-label" for="customFile">Choose Test</label>
+                  </div>
+                  <br>
+                  <br>
+            <button type="submit" class="btn btn-primary">Submit</button>
+            <br>
+            <br>
+          </form>
+        
+      </div>
+    
+'''
+#lets print upperbody so user can start seeing tha data
+print(upperbody)
+
+#now lets get all the tests
+conn=mysql.connect(user=username,password=password,database=database_name,host=host)
+cur = conn.cursor()
+cur.execute('SELECT * FROM testInfo')
+
+
+form2start='''
+<div id="form2" class="col-md-4 center " style="background: #71c55d; display: none">
+        <br> 
+        <br>
+        
+        <form  action="/cgi-bin/adminpanel"  method="post">
+            
+                    <select name="testname">
+'''
+print(form2start)
+
+#now lets print option for form two
+opt='<option value="%s">%s</option>'
+
+for option in cur:
+  print(opt%(option[0],option[1]))
+
+form2end='''
+                      </select>
+                  <br>
+                  <br>
+            <button type="submit" class="btn btn-primary">View result</button>
+            <br>
+            <br>
+          </form>
+        
+      </div>
+'''
+
+print(form2end)
+
+# now if the admin asked for some result  then 
+
+if form:
+  
+  ide=form.getvalue('testname')
+  cur.execute('SELECT  test_name , Max_score FROM testInfo where test_id=%s'%(ide))
+  test_data=cur.fetchone()
+  cur.execute('select userInfo.user_first_name , userInfo.user_phone , userScore.score from userInfo , userScore where userInfo.user_id=userScore.user_id and  userScore.test_id =%s'%(ide))
+  print('''<center><table id="result" >''')
+  print('''<tr><th>Student</th><th>Contact</th><th>Score</th></tr>''')
+  row='''
+    <tr>
+    <td>%s</td>
+    <td>%s</td>
+    <td>%s</td>
+    </tr>
+    '''
+  for result in cur :
+    print(row%(result[0],result[1],result[2]))
+  print('</table></center>')
+
+# time to print reamining page
+
+body_lower='''
+</section>
+
+  
+  <script>
+  
+      function form1() 
+      {
+        var x = document.getElementById("form1");
+        var y = document.getElementById("form2");
+        var z = document.getElementById("result");
+        y.style.display="none";
+        z.style.display="none";
+        if (x.style.display === "none") 
+        {
+          x.style.display = "block";
+        }
+        else 
+        {
+          x.style.display = "none";
+        }
+      } 
+
+      function form2() 
+      {
+        var y = document.getElementById("form1");
+        var z = document.getElementById("result");
+        var x = document.getElementById("form2");
+        y.style.display="none";
+        if (x.style.display === "none") 
+        {
+          x.style.display = "block";
+        }
+        else 
+        {
+          x.style.display = "none";
+        }
+        if (z.style.display === "none") 
+        {
+          z.style.display = "block";
+        }
+        else 
+        {
+          z.style.display = "none";
+        }
+      }
+  </script>
+
+  <a href="#" class="back-to-top"><i class="fa fa-chevron-up"></i></a>
+
+  <!-- JavaScript Libraries -->
+  <script src="lib/jquery/jquery.min.js"></script>
+  <script src="lib/jquery/jquery-migrate.min.js"></script>
+  <script src="lib/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="lib/superfish/hoverIntent.js"></script>
+  <script src="lib/superfish/superfish.min.js"></script>
+  <script src="lib/easing/easing.min.js"></script>
+  <script src="lib/modal-video/js/modal-video.js"></script>
+  <script src="lib/owlcarousel/owl.carousel.min.js"></script>
+  <script src="lib/wow/wow.min.js"></script>
+  <!-- Contact Form JavaScript File -->
+  <script src="contactform/contactform.js"></script>
+
+  <!-- Template Main Javascript File -->
+  <script src="js/main.js"></script>
+
+</body>
+</html>
+
+'''
+conn.close()
+print(body_lower)
+exit(0)

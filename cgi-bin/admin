@@ -1,0 +1,122 @@
+#!/usr/bin/python3
+
+import cgi
+import mysql.connector as mysql
+import os
+import cgitb
+
+cgitb.enable()
+
+#Magic Line
+print("Content-type: text/html\r\n\r\n")
+body='''
+<!DOCTYPE html><html>
+<head><title>Admin Panel</title>
+<link href="/img/favicon.png" rel="icon">
+<link href="/img/apple-touch-icon.png" rel="apple-touch-icon">
+<script>
+function accessCookie(cookieName)                                                                                                                       
+    {                                                                                                                                                       
+    var name = cookieName + "=";                                                                                                                            
+    var allCookieArray = document.cookie.split(';');                                                                                                        
+    for(var i=0; i<allCookieArray.length; i++)                                                                                                              
+    {                                                                                                                                                       
+            var temp = allCookieArray[i].trim();                                                                                                            
+            if (temp.indexOf(name)==0)                                                                                                                      
+            return temp.substring(name.length,temp.length);                                                                                                 
+            }                                                                                                                                               
+            return "";                                                                                                                                      
+    }
+  
+function checkCookie()                                                                                                                                  
+    {                                                                                                                                                       
+    var user = accessCookie("User_Id");
+    var mail=accessCookie("Email");
+    var name=accessCookie("User_Name");
+    var secret=accessCookie("sKey");
+
+    if (user=="")
+      {	
+        window.location="/";
+      }		
+    else if (user==32 && mail=='"root@linux.com"' && name=='"adhoc root"' && secret=="RqEtSkwaLw")
+      {
+        document.getElementById("menu1").innerHTML = "HomePage";
+        document.getElementById("menu1").setAttribute("onclick", 'window.location="/";');
+      }
+    else
+    {
+      window.location="/";
+    }
+   }
+</script>
+</head>
+<!DOCTYPE html><html><body onload="checkCookie()" bgcolor="#000000"><center><img src="/img/giphy.gif"></img>
+'''
+print(body)
+
+
+#Database data
+username='root'
+password='vijay'
+database_name='project1'
+host='localhost'
+
+# Now connecting the Database
+conn=mysql.connect(user=username,password=password,database=database_name,host=host)
+
+# Now generating a SQL language cursor
+cur = conn.cursor()
+
+#for adding a new Category
+
+form=cgi.FieldStorage()
+new_category=form.getvalue('test_name')
+Test_score=form.getvalue('Max_score')
+image=form['test_image']
+test=form['test_page']
+
+#Check if we got all the data or not
+
+if len(new_category)==0 or len(Test_score)==0:
+  print('<h1><font color="#03fca9" face="verdana">Invalid Credentials</font></h1>')
+  print('<meta http-equiv = "refresh" content = "3; url = /cgi-bin/adminpanel" />')
+  print("</center></body></html>")
+  exit(0)
+
+
+# now lests check if the this test category already exist
+cur.execute("select * from testInfo where test_name='"+new_category+"'")
+ch=[i for i in cur] 
+if len(ch)==1:
+  print('<h1><font color="#03fca9" face="verdana">This test already exist</font></h1>')
+  print('<meta http-equiv = "refresh" content = "3; url = /cgi-bin/adminpanel" />')
+  print("</center></body></hOtml>")
+  exit(0)
+
+# now lets save the test fie  and image
+f=open('tests/'+new_category+'.txt','wb') # this is testcontent
+f.write(test.file.read())
+f.close()
+
+# now its a try for image 
+f=open('../html/img/'+image.filename,'wb') # this is image 
+f.write(image.file.read())
+f.close()
+
+
+#now the file is saved and we can enter the data into database
+
+sql = "INSERT INTO  testInfo (test_name, test_file, Max_score,image_name) VALUES (%s, %s, %s,%s)"
+val = (new_category,new_category+'.txt',Test_score,image.filename)
+
+#Now lets insert data into database
+cur.execute(sql,val)
+conn.commit()
+conn.close()
+
+
+print('<h1><font color="#03fca9" face="verdana">Test Uploaded Succcessfully %s,%s, %s </font></h1>'%(new_category,Test_score,image.filename))
+print('<meta http-equiv = "refresh" content = "3; url = /cgi-bin/adminpanel" />')
+print("</center></body></html>")
+exit(0)

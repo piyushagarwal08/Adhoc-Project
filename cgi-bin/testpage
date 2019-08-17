@@ -30,6 +30,9 @@ bodyupper='''
 	<script src="/Question-page_files/bootstrap.js"></script>
 	
 <!-- Custom CSS -->
+<style>
+	
+	</style>
 	<style type="text/css">
 		.ui.main.container {
 			margin-top: 4em;
@@ -104,12 +107,13 @@ bodyupper='''
 	}
       .description{
 		padding-left: 30px;
+		padding-bottom: 15px;
         
 	}
       .header{
 
         
-        padding-top:11px !important;
+        
       }
       .nav-soal{
         padding-bottom:17px !important
@@ -121,7 +125,7 @@ bodyupper='''
   padding-left: 35px;
   margin-bottom: 12px;
   cursor: pointer;
-  font-size: 11px;
+  font-size: 13px;
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
@@ -274,15 +278,18 @@ else:
 # Now everything is valid now lets start printing the questions and options
 
 bodymid='''
-  <header id="header" class="header header-hide cust">
+ <header id="header" class="header header-hide cust">
     <div class="container">
 
-      <div id="logo" class="pull-left">
+      <div id="logo" class="pull-left col-md-4">
 				<h1><a href="#body" class="scrollto"><span>QUIZ</span>MANIA</a></h1>
         <!-- Uncomment below if you prefer to use an image logo -->
 				<!-- <a href="#body"><img src="img/logo.png" alt="" title="" /></a>-->
-      </div>
-				<div class="dropdown pull-right">
+			</div>
+			<div class="col-md-4">
+				<p id="timer" style=" text-align: center; font-size: 20px;"></p>
+			</div>
+				<div class="dropdown  pull-right">
 					<button class="btn btn-default dropdown-toggle" type="button" id="menu1">Hi There %s</button>
 				</div>		
 				
@@ -302,6 +309,7 @@ bodymid='''
 	</div>
 	<div class="ui main container">
 		<form class="ui form opsi" method="post" action="/cgi-bin/check">
+
 '''
 print(bodymid%(userdata[1],testdata[1]))
 
@@ -313,25 +321,19 @@ paper=open("tests/"+testdata[2],'r', encoding="utf8")
 
 ques='''
 <div class="ui card">
-			<div class="content">
-				<div class="ui header">
-				Questions : <span data-position="bottom right" data-tooltip="Nomor Soal Saat Ini" class="ui blue label">%d</span>
+			<div class="content"  style="background: #71c55d">
+				<div class="ui header" style="font-size:15px;">
+				<p style="color:white; font-size: 15px"><b>Questions : </b><span data-position="bottom right" data-tooltip="Nomor Soal Saat Ini" class="ui blue label">%d</span></p>
 
-					<div style="float: right;">
-
-							<div class="menu">
-
-							</div>
-						</div>
+					
 
 
 					</div>
 				</div>
 
-				<div class="ui divider"></div>
-			
-				<div class="description" padding-left="30;">
-                <p>%s</p>
+				
+				<div class="description" padding-left="30;" style="font-size:25px ;margin-top:10px;">
+                <p style="font-size:18px;"> <b>%s</b></p>
 '''
 
 option_print='''
@@ -356,7 +358,7 @@ for line in paper:
 			exit(3)
 				
 		if line.split('.')[0]=='Ans':
-			print("</div></div>")
+			print("</div></div><br>")
 			i+=1
 			option=0
 			continue
@@ -393,7 +395,7 @@ print('<input type="hidden" name="questions" value="%s">'%(str(i)))
 button='''
 <div class="nav-soal center aligned">
 						<center>
-						<button class="btn btn-success " type="submit">
+						<button class="btn btn-success " id="sub" type="submit">
 						  <i class="chevron right icon"></i>
 						  Submit
 						</button>
@@ -459,9 +461,36 @@ bodybottom='''
 
 	});
 	</script>
+	<script type="text/javascript">
+		alert("Click OK to BEGIN!!!");
+		document.getElementById('timer').innerHTML =
+  30 + ":" + 00;
+startTimer();
 
+function startTimer() {
+  var presentTime = document.getElementById('timer').innerHTML;
+  var timeArray = presentTime.split(/[:]+/);
+  var m = timeArray[0];
+  var s = checkSecond((timeArray[1] - 1));
+  if(s==59){m=m-1}
+  if(m<0){document.getElementById("sub").click();}
+  
+  document.getElementById('timer').innerHTML =
+    m + ":" + s;
+  setTimeout(startTimer, 1000);
+}
+
+function checkSecond(sec) {
+  if (sec < 10 && sec >= 0) {sec = "0" + sec}; // add zero in front of numbers < 10
+  if (sec < 0) {sec = "59"};
+  return sec;
+}
+		</script>
+		
 
 </body></html>
+
+
 '''
 
 print(bodybottom)
