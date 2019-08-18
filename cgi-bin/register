@@ -15,10 +15,28 @@ print('''
 <head><title>Register</title>
 <link href="/img/favicon.png" rel="icon">
 <link href="/img/apple-touch-icon.png" rel="apple-touch-icon">
+<script>
+document.onkeydown = function(e) {
+			if(event.keyCode == 123) {
+			return false;
+			}
+			if(e.ctrlKey && e.shiftKey && e.keyCode == 'I'.charCodeAt(0)){
+			return false;
+			}
+			if(e.ctrlKey && e.shiftKey && e.keyCode == 'J'.charCodeAt(0)){
+			return false;
+			}
+			if(e.ctrlKey && e.keyCode == 'U'.charCodeAt(0)){
+			return false;
+			}
+			
+			}
+</script> 
+
 </head>
 ''')
-# The Background
-print('<body bgcolor="#000000"><center><img src="/img/giphy.gif"></img>')
+# The Body and  Background
+print('<body  oncontextmenu="return false;"  bgcolor="#000000"><center><img src="/img/giphy.gif"></img>')
 
 # Now connecting the Database
 conn=mysql.connect(user=username,password=password,database=database_name,host=host)

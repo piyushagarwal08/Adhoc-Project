@@ -20,16 +20,35 @@ form = cgi.FieldStorage()
 user_email =form.getvalue('email')
 user_password = form.getvalue('password')
 
+basic='''
+<!DOCTYPE html><html>
+<head><title>Login</title>
+<link href="/img/favicon.png" rel="icon">
+<link href="/img/apple-touch-icon.png" rel="apple-touch-icon">
+<script>
+document.onkeydown = function(e) {
+			if(event.keyCode == 123) {
+			return false;
+			}
+			if(e.ctrlKey && e.shiftKey && e.keyCode == 'I'.charCodeAt(0)){
+			return false;
+			}
+			if(e.ctrlKey && e.shiftKey && e.keyCode == 'J'.charCodeAt(0)){
+			return false;
+			}
+			if(e.ctrlKey && e.keyCode == 'U'.charCodeAt(0)){
+			return false;
+			}
+			
+			}
+</script>  
+</head>
+<body  oncontextmenu="return false;" bgcolor="#000000"><center><img src="/img/giphy.gif"></img>
+'''
+
 if user_email==None or user_password==None:
-	print("Content-type: text/html\r\n\r\n") # The Magic line
-	print('''
-	<!DOCTYPE html><html>
-	<head><title>Login</title>
-	<link href="/img/favicon.png" rel="icon">
-	<link href="/img/apple-touch-icon.png" rel="apple-touch-icon">
-	</head>
-	''')
-	print('<!DOCTYPE html><html><body bgcolor="#000000"><center><img src="/img/giphy.gif"></img>')
+	print("Content-type: text/html\r\n\r\n") # Magic line
+	print(basic)
 	print('<h1><font color="#03fca9" face="verdana">No Input Given</font></h1>')
 	print('<meta http-equiv = "refresh" content = "3; url = /login-register" />')
 	print("</center></body></html>")
@@ -39,16 +58,9 @@ if user_email==None or user_password==None:
 cur.execute("select * from userInfo where user_email='"+user_email+"'")
 data=cur.fetchone()
 #user data is incorrect
-if len(data)==0 or data[-1]!=user_password:
-	print("Content-type: text/html\r\n\r\n") # The Magic line
-	print('''
-	<!DOCTYPE html><html>
-	<head><title>Login</title>
-	<link href="/img/favicon.png" rel="icon">
-	<link href="/img/apple-touch-icon.png" rel="apple-touch-icon">
-	</head>
-	''')
-	print('<!DOCTYPE html><html><body bgcolor="#000000"><center><img src="/img/giphy.gif"></img>')
+if data==None or data[-1]!=user_password:
+	print("Content-type: text/html\r\n\r\n") # Magic line
+	print(basic)
 	print('<h1><font color="#03fca9" face="verdana">Invalid Credentials</font></h1>')
 	print('<meta http-equiv = "refresh" content = "3; url = /login-register" />')
 	print("</center></body></html>")
@@ -70,18 +82,9 @@ if user_email=="root@linux.com":
  
 print(c)
 
-#print The magic line
-print('Content-type: text/html \r\n\r\n')
-
 #Now Cookies are set and we can use them now 
-print('''
-<!DOCTYPE html><html>
-<head><title>Login</title>
-<link href="/img/favicon.png" rel="icon">
-<link href="/img/apple-touch-icon.png" rel="apple-touch-icon">
-</head>
-''')
-print('<!DOCTYPE html><html><body bgcolor="#000000"><center><img src="/img/giphy.gif"></img>')
+print("Content-type: text/html\r\n\r\n") # Magic line
+print(basic)
 print('<h1><font color="#03fca9" face="verdana">Login Succesfull</font></h1>')
 print('<meta http-equiv = "refresh" content = "3; url = /" />')
 print("</center></body></html>")

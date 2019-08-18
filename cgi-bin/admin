@@ -49,9 +49,25 @@ function checkCookie()
       window.location="/";
     }
    }
+   document.onkeydown = function(e) {
+			if(event.keyCode == 123) {
+			return false;
+			}
+			if(e.ctrlKey && e.shiftKey && e.keyCode == 'I'.charCodeAt(0)){
+			return false;
+			}
+			if(e.ctrlKey && e.shiftKey && e.keyCode == 'J'.charCodeAt(0)){
+			return false;
+			}
+			if(e.ctrlKey && e.keyCode == 'U'.charCodeAt(0)){
+			return false;
+			}
+			
+			}
+      
 </script>
 </head>
-<!DOCTYPE html><html><body onload="checkCookie()" bgcolor="#000000"><center><img src="/img/giphy.gif"></img>
+<!DOCTYPE html><html><body onload="checkCookie()" bgcolor="#000000" oncontextmenu="return false;" ><center><img src="/img/giphy.gif"></img>
 '''
 print(body)
 

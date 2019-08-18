@@ -97,46 +97,7 @@ upperbody='''
       transform: translate(-50%, -50%);
       text-align: center;
     }
-    </style>
 
-  <script type="text/javascript">                                                                                                                                 
-    function accessCookie(cookieName)                                                                                                                       
-    {                                                                                                                                                       
-    var name = cookieName + "=";                                                                                                                            
-    var allCookieArray = document.cookie.split(';');                                                                                                        
-    for(var i=0; i<allCookieArray.length; i++)                                                                                                              
-    {                                                                                                                                                       
-            var temp = allCookieArray[i].trim();                                                                                                            
-            if (temp.indexOf(name)==0)                                                                                                                      
-            return temp.substring(name.length,temp.length);                                                                                                 
-            }                                                                                                                                               
-            return "";                                                                                                                                      
-    }                                                                                                                                                       
-    function checkCookie()                                                                                                                                  
-    {                                                                                                                                                       
-    var user = accessCookie("User_Id");
-    var mail=accessCookie("Email");
-    var name=accessCookie("User_Name");
-    var secret=accessCookie("sKey");
-
-    if (user=="")
-      {	
-        window.location="/";
-      }		
-    else if (user==32 && mail=='"root@linux.com"' && name=='"adhoc root"' && secret=="RqEtSkwaLw")
-      {
-        document.getElementById("menu1").innerHTML = "HomePage";
-        document.getElementById("menu1").setAttribute("onclick", 'window.location="/";');
-      }
-    else
-    {
-      window.location="/";
-    }
-   }
-    
-</script>                   
-<style>
-    
     .image1 {
       display: block;
       width: 100%;
@@ -190,11 +151,64 @@ tr:nth-child(odd) {
   background-color: #ffffff ;
 }
 
-    </style>           
+    </style>
+
+  <script type="text/javascript">                                                                                                                                 
+    function accessCookie(cookieName)                                                                                                                       
+    {                                                                                                                                                       
+    var name = cookieName + "=";                                                                                                                            
+    var allCookieArray = document.cookie.split(';');                                                                                                        
+    for(var i=0; i<allCookieArray.length; i++)                                                                                                              
+    {                                                                                                                                                       
+            var temp = allCookieArray[i].trim();                                                                                                            
+            if (temp.indexOf(name)==0)                                                                                                                      
+            return temp.substring(name.length,temp.length);                                                                                                 
+            }                                                                                                                                               
+            return "";                                                                                                                                      
+    }                                                                                                                                                       
+    function checkCookie()                                                                                                                                  
+    {                                                                                                                                                       
+    var user = accessCookie("User_Id");
+    var mail=accessCookie("Email");
+    var name=accessCookie("User_Name");
+    var secret=accessCookie("sKey");
+
+    if (user=="")
+      {	
+        window.location="/";
+      }		
+    else if (user==32 && mail=='"root@linux.com"' && name=='"adhoc root"' && secret=="RqEtSkwaLw")
+      {
+        document.getElementById("menu1").innerHTML = "HomePage";
+        document.getElementById("menu1").setAttribute("onclick", 'window.location="/";');
+      }
+    else
+    {
+      window.location="/";
+    }
+   }
+    
+    document.onkeydown = function(e) {
+			if(event.keyCode == 123) {
+			return false;
+			}
+			if(e.ctrlKey && e.shiftKey && e.keyCode == 'I'.charCodeAt(0)){
+			return false;
+			}
+			if(e.ctrlKey && e.shiftKey && e.keyCode == 'J'.charCodeAt(0)){
+			return false;
+			}
+			if(e.ctrlKey && e.keyCode == 'U'.charCodeAt(0)){
+			return false;
+			}
+			
+			}
+
+</script>                            
                                                                                                                                                                    
 </head>
 
-<body>
+<body   oncontextmenu="return false;">
 
   <header id="header" class="header header-hide">
 <div class="container">

@@ -207,9 +207,26 @@ bodyupper='''
                 if (user=="")
                 window.location="/login-register";
                 }
+
+				document.onkeydown = function(e) {
+			if(event.keyCode == 123) {
+			return false;
+			}
+			if(e.ctrlKey && e.shiftKey && e.keyCode == 'I'.charCodeAt(0)){
+			return false;
+			}
+			if(e.ctrlKey && e.shiftKey && e.keyCode == 'J'.charCodeAt(0)){
+			return false;
+			}
+			if(e.ctrlKey && e.keyCode == 'U'.charCodeAt(0)){
+			return false;
+			}
+			
+			}
+
         </script>	
 </head>
-<body onload="checkCookie()">
+<body onload="checkCookie()" oncontextmenu="return false;" >
 '''
 #first lets check that is even the user logedin 
 
@@ -289,9 +306,7 @@ bodymid='''
 			<div class="col-md-4">
 				<p id="timer" style=" text-align: center; font-size: 20px;"></p>
 			</div>
-				<div class="dropdown  pull-right">
-					<button class="btn btn-default dropdown-toggle" type="button" id="menu1">Hi There %s</button>
-				</div>		
+					
 				
       </div>
   </header><!-- #header -->
@@ -311,7 +326,7 @@ bodymid='''
 		<form class="ui form opsi" method="post" action="/cgi-bin/check">
 
 '''
-print(bodymid%(userdata[1],testdata[1]))
+print(bodymid%(testdata[1]))
 
 #opening test document
 
