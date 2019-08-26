@@ -249,31 +249,20 @@ tr:nth-child(odd) {
         <div class="col-md-6">
           <div class="container">
             <img src="/img/giphy.gif" alt="img" class="image center">
-            <a href="#form1" onclick="form1()"><div class="overlay">
+            <div class="overlay" onclick="form1()">
               <div class="text">Add New Category Quiz</div>
             </div>
-          </a>
           </div>  
         </div>
       
       
+        
         <div class="col-md-6">
           <div class="container">
             <img src="/img/giphy.gif" alt="img" class="image center">
-            <a href="#form1" onclick="form1()"><div class="overlay">
-              <div class="text">Add Existing Category Quiz</div>
-            </div>
-          </a>
-          </div>  
-        </div>
-        <br>
-        <div class="col-md-6">
-          <div class="container">
-            <img src="/img/giphy.gif" alt="img" class="image center">
-            <a href="#form2" onclick="form2()"><div class="overlay">
+            <div class="overlay"  onclick="form2()">
               <div class="text">View Scoreboard</div>
             </div>
-          </a>
           </div>  
         </div>
         
@@ -384,11 +373,10 @@ body_lower='''
   
       function form1() 
       {
-        var x = document.getElementById("form1");
         var y = document.getElementById("form2");
         var z = document.getElementById("result");
+        var x = document.getElementById("form1");
         y.style.display="none";
-        z.style.display="none";
         if (x.style.display === "none") 
         {
           x.style.display = "block";
@@ -396,6 +384,14 @@ body_lower='''
         else 
         {
           x.style.display = "none";
+        }
+        if (z.style.display === "none") 
+        {
+          z.style.display = "block";
+        }
+        else 
+        {
+          z.style.display = "none";
         }
       } 
 
