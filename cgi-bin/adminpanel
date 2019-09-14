@@ -2,6 +2,8 @@
 
 import cgi
 import mysql.connector as mysql
+import os
+
 
 #RDS information
 username='root'
@@ -15,6 +17,7 @@ host='localhost'
 print("Content-type: text/html\r\n\r\n")
 
 form = cgi.FieldStorage()
+
 
 
 upperbody='''
@@ -266,6 +269,15 @@ tr:nth-child(odd) {
           </div>  
         </div>
         
+        <div class="col-md-6">
+          <div class="container">
+            <img src="/img/giphy.gif" alt="img" class="image center">
+            <div class="overlay"  onclick="form3()">
+              <div class="text">Delete any test</div>
+            </div>
+          </div>  
+        </div>
+
       </div>
       <br>
       <br>
@@ -305,9 +317,27 @@ tr:nth-child(odd) {
 #lets print upperbody so user can start seeing tha data
 print(upperbody)
 
-#now lets get all the tests
+#now connecting to database
 conn=mysql.connect(user=username,password=password,database=database_name,host=host)
 cur = conn.cursor()
+
+table=False
+if form:
+  ide=form.getvalue('testname')
+  dele=form.getvalue('delete')
+  if dele!=None:
+    cur.execute('select test_name from  testInfo where test_id=%s'%(ide))
+    name=cur.fetchone()
+    os.remove('tests/%s.txt'%(name))
+    cur.execute('delete from userScore where test_id=%s'%(ide))
+    cur.execute('delete from testInfo where test_id=%s'%(ide))
+    conn.commit()
+    print('<script>alert("%s test is deleted ");</script>'%(name))
+    table=False
+  else:
+    table=True
+
+# now getting all the tests
 cur.execute('SELECT * FROM testInfo')
 
 
@@ -320,6 +350,8 @@ form2start='''
             
                     <select name="testname">
 '''
+
+#this form is to view result of any test which will be shown in a list
 print(form2start)
 
 #now lets print option for form two
@@ -342,26 +374,63 @@ form2end='''
 
 print(form2end)
 
+
+cur.execute('SELECT * FROM testInfo')
+
+#this form is to delete any test which are shown in the list on website
+form3start='''
+<div id="form3" class="col-md-4 center " style="background: #71c55d; display: none">
+        
+        <br> 
+        <br>
+        
+        <form  action="/cgi-bin/adminpanel"  method="post">
+            <input type="hidden" name="delete" value="yes">
+                    <select name="testname">
+'''
+print(form3start)
+
+#now lets print option for form two
+opt='<option value="%s">%s</option>'
+
+for option in cur:
+  print(opt%(option[0],option[1]))
+
+form3end='''
+                      </select>
+                  <br>
+                  <br>
+            <button type="submit" class="btn btn-primary">Delete Test</button>
+            <br>
+            <br>
+          </form>
+        
+      </div>
+'''
+
+print(form3end)
+
+
 # now if the admin asked for some result  then 
 
-if form:
-  
-  ide=form.getvalue('testname')
+if table:
   cur.execute('SELECT  test_name , Max_score FROM testInfo where test_id=%s'%(ide))
   test_data=cur.fetchone()
   cur.execute('select userInfo.user_first_name , userInfo.user_phone , userScore.score from userInfo , userScore where userInfo.user_id=userScore.user_id and  userScore.test_id =%s'%(ide))
   print('''<center><table id="result" >''')
   print('''<tr><th>Student</th><th>Contact</th><th>Score</th></tr>''')
   row='''
-    <tr>
-    <td>%s</td>
-    <td>%s</td>
-    <td>%s</td>
-    </tr>
-    '''
+      <tr>
+      <td>%s</td>
+      <td>%s</td>
+      <td>%s</td>
+      </tr>
+      '''
   for result in cur :
     print(row%(result[0],result[1],result[2]))
   print('</table></center>')
+    
+  
 
 # time to print reamining page
 
@@ -376,18 +445,24 @@ body_lower='''
         var y = document.getElementById("form2");
         var z = document.getElementById("result");
         var x = document.getElementById("form1");
+        var e = document.getElementById("form3");
+        e.style.display="none";
         y.style.display="none";
         if (x.style.display === "none") 
         {
           x.style.display = "block";
+          z.style.display="block";
         }
         else 
         {
           x.style.display = "none";
+          z.style.display = "none";
         }
         if (z.style.display === "none") 
         {
           z.style.display = "block";
+          
+
         }
         else 
         {
@@ -400,14 +475,18 @@ body_lower='''
         var y = document.getElementById("form1");
         var z = document.getElementById("result");
         var x = document.getElementById("form2");
+        var e = document.getElementById("form3");
+        e.style.display="none";
         y.style.display="none";
         if (x.style.display === "none") 
         {
           x.style.display = "block";
+          z.style.display = "block";
         }
         else 
         {
           x.style.display = "none";
+          z.style.display = "none";
         }
         if (z.style.display === "none") 
         {
@@ -418,6 +497,37 @@ body_lower='''
           z.style.display = "none";
         }
       }
+
+      function form3() 
+      {
+        var y = document.getElementById("form2");
+        var z = document.getElementById("result");
+        var x = document.getElementById("form3");
+        var e = document.getElementById("form1");
+        e.style.display="none";
+        y.style.display="none";
+        if (x.style.display === "none") 
+        {
+          x.style.display = "block";
+          z.style.display="block";
+        }
+        else 
+        {
+          x.style.display = "none";
+          z.style.display = "none";
+        }
+        if (z.style.display === "none") 
+        {
+          z.style.display = "block";
+          
+
+        }
+        else 
+        {
+          z.style.display = "none";
+        }
+      } 
+      
   </script>
 
   <a href="#" class="back-to-top"><i class="fa fa-chevron-up"></i></a>

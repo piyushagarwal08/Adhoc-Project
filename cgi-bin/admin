@@ -3,9 +3,7 @@
 import cgi
 import mysql.connector as mysql
 import os
-import cgitb
 
-cgitb.enable()
 
 #Magic Line
 print("Content-type: text/html\r\n\r\n")
@@ -116,15 +114,24 @@ f.write(test.file.read())
 f.close()
 
 # now its a try for image 
-f=open('../html/img/'+image.filename,'wb') # this is image 
-f.write(image.file.read())
-f.close()
+if image.filename:
+  print('<h1><font color="#03fca9" face="verdana">%s</font></h1>'%(image.filename))
+  f=open('../html/img/'+image.filename,'wb') # this is image 
+  f.write(image.file.read())
+  f.close()
+  sql = "INSERT INTO  testInfo (test_name, test_file, Max_score,image_name) VALUES (%s, %s, %s,%s)"
+  val = (new_category,new_category+'.txt',Test_score,image.filename)
+else:
+  print('<h1><font color="#03fca9" face="verdana">No Image file</font></h1>')
+  sql = "INSERT INTO  testInfo (test_name, test_file, Max_score) VALUES (%s, %s, %s)"
+  val = (new_category,new_category+'.txt',Test_score)
+  
+  
 
 
 #now the file is saved and we can enter the data into database
 
-sql = "INSERT INTO  testInfo (test_name, test_file, Max_score,image_name) VALUES (%s, %s, %s,%s)"
-val = (new_category,new_category+'.txt',Test_score,image.filename)
+
 
 #Now lets insert data into database
 cur.execute(sql,val)
@@ -132,7 +139,7 @@ conn.commit()
 conn.close()
 
 
-print('<h1><font color="#03fca9" face="verdana">Test Uploaded Succcessfully %s,%s, %s </font></h1>'%(new_category,Test_score,image.filename))
+print('<h1><font color="#03fca9" face="verdana">Test Uploaded Succcessfully %s </font></h1>'%(new_category))
 print('<meta http-equiv = "refresh" content = "3; url = /cgi-bin/adminpanel" />')
 print("</center></body></html>")
 exit(0)

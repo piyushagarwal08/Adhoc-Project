@@ -1,0 +1,230 @@
+
+1) What command is used to count the total number of lines, words, and characters contained in a file?
+i. Countw
+ii. wcount
+iii. wc
+iv. count p
+Ans. iii
+
+2) Which directory contains configuration files in Linux?
+	i. /bin/
+	ii. /dev/
+	iii./etc/
+	iv. /root/
+Ans. iii
+
+3) What is maximum filename size in Linux in bytes?
+	i. 32
+	ii. 64
+	iii. 128
+	iv. 255
+Ans. iv
+
+4) Which command is used to keep a process running even after logout from shell?
+	i. &
+	ii. Nohup
+	iii. Bg
+	iv. Cron
+Ans. ii
+
+5) Which file is the list of commands you recently entered stored in?
+	i. .bashrc history
+	ii. .history
+	iii. .bash_history
+	iv. bash_list_history
+Ans. iii
+
+6) The dmesg command for
+	i.  Shows user login logoff attempts
+	ii.  Shows the syslog file for info messages
+	iii.  kernel log messages
+	iv. Shows the daemon log messages
+Ans. iii
+
+7) Which command is used to set terminal IO characteristic?
+	i. tty
+	ii. ctty
+	iii. ptty
+	iv. stty 
+Ans. iv
+
+8)  Find / -name �*� will
+	i. List all files and directories recursively starting from /
+	ii. List a file named * in /
+	iii. List all files in / directory
+	iv. List all files and directories in / directory
+Ans. i
+
+9) Parameters can be passed to a function
+	i.  by using the parameter variables $1, $2, $3��.
+	ii. by using the environment variables
+	iii.by using the parameter & environment variables
+	iv. none of the mentioned
+Ans. i
+
+10) The file permission 764 means:
+	i. Every one can read, group can execute only and the owner can read and write
+	ii. Every one can read and write, but owner alone can execute
+	iii. Every one can read, group including owner can write, owner alone can execute
+	iv. Every one can read and write and execute
+Ans.iii
+
+11) The permission -rwxr--r-- represented in octal expression will be
+	i. 777
+	ii. 666
+	iii. 744
+	iv. 711
+Ans. iii
+
+12) If user tries to remove (rm) a readonly file (444 permission), what will happen?
+	i.The file is removed successfully (and silently)
+	ii. The rm command prompts for a confirmation, the command is successful upon confirmation
+	iii. The rm command prompts for a confirmation, however the operation fails because of insufficient permissions
+	iv. The rm command fails because of insufficient permissions
+Ans. ii
+
+13)  Operating system kernel must be located in
+	i. /
+	ii. /boot
+	iii. either in / or in /boot
+	iv. none of the mentioned
+Ans. iii
+13) If the umask value is 0002. what will be the permissions of new directory
+	i. 777
+	ii. 775
+	iii. 774
+	iv. 664
+Ans. ii
+
+14)  What is the use of strace command?
+	i. strace can be used to check the system calls called by the program. So, this can be used for debugging and benchmarking purposes
+	ii.strace cannot be used to check the system calls called by the program
+	iii.all of the mentioned
+	iv. none of the mentioned
+Ans. i
+
+15) What command is used with vim editor to encryption of a file 
+	i. Y
+	ii. a
+ 	iii.z
+	iv. X
+Ans. iv 
+
+16) How many networks and nodes per network, are allowed by the Class B network?
+	i. 127 networks and 16,777,216 nodes per network
+	ii. 16,384 networks and 65,534 nodes per network
+	iii. 2,097,152 networks and 254 nodes per network
+	iv. All of the above
+	 v. None of the above 
+Ans. ii
+
+17) What file specifies the order in which to use specified name services?
+
+	i. /etc/services
+	ii. /etc/nsorder
+	iii. /etc/nsswitch.conf
+	iv. /etc/hosts
+         v.None of the above
+Ans. iii
+
+18) In which directory can you store system user default files used for creating user directories?
+	i. /usr/tmp
+	ii. /etc/default
+	iii. /etc/skel
+	iv. /etc/users
+	v. None of the above
+Ans. iii
+
+19) Which of the following is not a communication command?
+	i.grep
+	ii.mail
+	iii.mesg
+	iv. write
+	v.None of the above
+Ans. i 
+
+20) Which of the following server is used with the BIND package?
+
+	i.httpd
+	ii.shttp
+	iii.dns
+	iv. named
+	v.None of the above
+Ans. iii
+
+21) What shell's wild-card is used to match any number of characters including none?
+	i. *
+	ii. ?
+	iii. [!ijk]
+	iv. [ijk]
+	v. None of the above
+Ans. i
+
+22) What command is used to list contents of directories?
+
+	i. tar
+	ii.dir
+	iii. lp
+	iv. ls
+	v. None of the above
+Ans. iv
+
+23) What command is used with vi editor to append text at end of line?
+
+	i. I
+	ii. i
+	iii.a
+	iv. A
+	v. None of the above
+Ans. iv
+
+24) What command is used to copy directory structures in and out?
+	i.copy
+	ii.cp - p
+	iii. cpio
+	iv.cp
+	v.None of the above
+Ans. iii
+
+25) In OSI network architecture, the dialogue control and token management are responsible of
+
+	i.data link layer
+	ii.transport layer
+	iii.network layer
+	iv.session layer
+	v.None of the above
+Ans. iv
+
+26) Layer one of the OSI model is
+	i.network layer
+	ii.transport layer
+	iii.link layer
+	iv.physical layer
+	v.None of the above
+Ans. iv
+
+27)  Core of Linux operating system is
+	i.Kernel
+	ii.Shell
+	iii.Terminal
+	iv.Command
+Ans. i
+
+28)  Linux operating system supports
+	i.Multi User
+	ii.Multi Process
+	iii.Multi-Tasking
+	iv.All of the above
+Ans. iv
+
+29) True statement about chown command in Linux is
+	i.Creates a thread
+	ii.Creates a child process
+	iii.Changes the mode of operation to kernel mode
+	iv.Changes the users and/or group ownership of each given file
+Ans.iv
+
+30) Linux operating system is virus free.
+i. true
+ii. false
+Ans.ii

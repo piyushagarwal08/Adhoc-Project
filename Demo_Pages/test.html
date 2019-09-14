@@ -1,23 +1,31 @@
+
+
 <!DOCTYPE html>
-<html lang="en">
-<head>
+<html lang="en"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
 	<!-- Title Page -->
-	<title>Welcome to the Quiz</title>
+	<title>QuizPage</title>
+
+	<link href="/img/favicon.png" rel="icon">
+    <link href="/img/apple-touch-icon.png" rel="apple-touch-icon">
 
 	<!-- Meta -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
 	<!-- Required CSS -->
-	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css">
-	<link href="/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-	<link href="/css/style.css" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="Question-page_files/semantic.css">
+	<link href="Question-page_files/bootstrap_002.css" rel="stylesheet">
+	<link href="Question-page_files/style.css" rel="stylesheet">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="Question-page_files/bootstrap.css">
+  <script src="Question-page_files/jquery.js"></script>
+	<script src="Question-page_files/bootstrap.js"></script>
 	
 <!-- Custom CSS -->
+<style>
+	
+	</style>
 	<style type="text/css">
 		.ui.main.container {
 			margin-top: 4em;
@@ -92,17 +100,84 @@
 	}
       .description{
 		padding-left: 30px;
+		padding-bottom: 15px;
         
 	}
       .header{
 
         
-        padding-top:11px !important;
+        
       }
       .nav-soal{
         padding-bottom:17px !important
       }
-      
+
+		.container {
+  display: block;
+  position: relative;
+  padding-left: 35px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  font-size: 13px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* Hide the browser's default checkbox */
+.container input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+/* Create a custom checkbox */
+.checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 25px;
+  width: 25px;
+  background-color: #eee;
+}
+
+/* On mouse-over, add a grey background color */
+.container:hover input ~ .checkmark {
+  background-color: #ccc;
+}
+
+/* When the checkbox is checked, add a blue background */
+.container input:checked ~ .checkmark {
+  background-color: #2196F3;
+}
+
+/* Create the checkmark/indicator (hidden when not checked) */
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+/* Show the checkmark when checked */
+.container input:checked ~ .checkmark:after {
+  display: block;
+}
+
+/* Style the checkmark/indicator */
+.container .checkmark:after {
+  left: 9px;
+  top: 5px;
+  width: 5px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 3px 3px 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+}  
 				
 			
 	</style>
@@ -128,22 +203,23 @@
         </script>	
 </head>
 <body onload="checkCookie()">
-	<!-- Page Header -->
-	
+
+
   <header id="header" class="header header-hide cust">
     <div class="container">
 
-      <div id="logo" class="pull-left">
-				<h1><a href="#body" class="scrollto"><span class="label label-success">Quiz</span><span class="label label-primary">Mania</span></a></h1>
+      <div id="logo" class="pull-left col-md-4">
+				<h1><a href="#body" class="scrollto"><span>QUIZ</span>MANIA</a></h1>
         <!-- Uncomment below if you prefer to use an image logo -->
 				<!-- <a href="#body"><img src="img/logo.png" alt="" title="" /></a>-->
-      </div>
-				<div class="dropdown pull-right">
-					<button class="btn btn-default dropdown-toggle" type="button" id="menu1" >Tests</button>
+			</div>
+			<div class="col-md-4">
+				<p id="timer" style=" text-align: center; font-size: 20px;"></p>
+			</div>
+				<div class="dropdown  pull-right">
+					<button class="btn btn-default dropdown-toggle" type="button" id="menu1">Hi There kcuh</button>
 				</div>		
-				<script>
-				document.getElementById("menu1").innerHTML = "Hi There "+ accessCookie("User_Name");
-				</script>	
+				
       </div>
   </header><!-- #header -->
 
@@ -152,143 +228,133 @@
 	<br>
 	<br>
 	<!-- Page Content -->
-	<div style="text-align:center">
-		<h2><span class="label label-success">Test Name : NameOoPedia</span></h2>
-	</div>
-		<div class="ui active dimmer page" style="z-index: 103;">
+			<div style="text-align:center">
+				<h2><span class="label label-success">Test Name : Demo Test</span></h2>
+			</div>
+		<div class="ui dimmer page" style="z-index: 103;">
 		<div class="ui text loader" style="margin-top: 250px;">Loading</div>
 	</div>
 	<div class="ui main container">
-		<form class="ui form opsi" action="www.google.com">
-		<div class="ui card">
-			<div class="content">
-				<div class="ui header" >
-				Questions : <span data-position="bottom right" data-tooltip="Nomor Soal Saat Ini" class="ui blue label">1</span>
+		<form class="ui form opsi" method="post" action="/cgi-bin/check">
 
-					<div style="float: right;">
 
-							<div class="menu">
+<div class="ui card">
+			<div class="content"  style="background: #71c55d">
+				<div class="ui header" style="font-size:15px;">
+				<p style="color:antiquewhite; font-size: 15px"><b>Questions : </b><span data-position="bottom right" data-tooltip="Nomor Soal Saat Ini" class="ui blue label">1</span></p>
 
-							</div>
-						</div>
+					
 
 
 					</div>
 				</div>
 
-				<div class="ui divider"></div>
-			
-				<div class="description" padding-left=30;>
-					<p >Which technology is used for automation?</p>
-					
+				
+				<div class="description" padding-left="30;" style="font-size:25px ;margin-top:10px;">
+                <p style="font-size:18px;"> <b> This is just a demo testpage</b></p>
 
-						<div class="opsi">
-							<input type="radio" name="opsi" class="opsi" id="a">
-							<label class="abjad" for="a">A</label>
-							<label class="isi">Ansible</label>
-						</div>
 
-						<div class="opsi">
-							<input type="radio" name="opsi" class="opsi" id="b">
-							<label class="abjad" for="b">B</label>
-							<label class="isi">Docker</label>
-						</div>
 
-						<div class="opsi">
-							<input type="radio" name="opsi" class="opsi" id="c">
-							<label class="abjad" for="c">C</label>
-							<label class="isi">Devops</label>
-						</div>
+	 	<label class="container"  > Option1
+  		<input type="checkbox"  name="ques1" id="a1" value="i">
+  		<span class="checkmark"></span>
+		</label>
 
-						<div class="opsi">
-							<input type="radio" name="opsi" class="opsi" id="d">
-							<label class="abjad" for="d">D</label>
-							<label class="isi">Linux</label>
-						</div>
-						</div>
-						
-					
 
-					
-					</div>
-					<div class="ui card">
-						<div class="content">
-							<div class="ui header" >
-							Questions : <span data-position="bottom right" data-tooltip="Nomor Soal Saat Ini" class="ui blue label">2</span>
-			
-								<div style="float: right;">
-			
-										<div class="menu">
-			
-										</div>
-									</div>
-			
-			
-								</div>
-							</div>
-			
-							<div class="ui divider"></div>
-			
-							<div class="description" padding-left=30;>
-								<p >Which technology is used for automation?</p>
 
-								
+	 	<label class="container"  > Option2 {Correct one}
+  		<input type="checkbox"  name="ques1" id="b1" value="ii">
+  		<span class="checkmark"></span>
+		</label>
+
+
+
+	 	<label class="container"  > Option3
+  		<input type="checkbox"  name="ques1" id="c1" value="iii">
+  		<span class="checkmark"></span>
+		</label>
+
+
+
+	 	<label class="container"  > Option4
+  		<input type="checkbox"  name="ques1" id="d1" value="iv">
+  		<span class="checkmark"></span>
+		</label>
+		
+</div></div>
+<br>
+
+<div class="ui card">
+		<div class="content"  style="background: #71c55d">
+			<div class="ui header" style="font-size:15px;">
+			<p style="color:antiquewhite; font-size: 15px"><b>Questions : </b><span data-position="bottom right" data-tooltip="Nomor Soal Saat Ini" class="ui blue label">2</span></p>
+
+				
+
+				</div>
+			</div>
+
 			
-									<div class="opsi">
-										<input type="radio" name="opsi" class="opsi" id="a2">
-										<label class="abjad" for="a2">A</label>
-										<label class="isi">Ansible</label>
-									</div>
-			
-									<div class="opsi">
-										<input type="radio" name="opsi" class="opsi" id="b2">
-										<label class="abjad" for="b2">B</label>
-										<label class="isi">Docker</label>
-									</div>
-			
-									<div class="opsi">
-										<input type="radio" name="opsi" class="opsi" id="c2">
-										<label class="abjad" for="c2">C</label>
-										<label class="isi">Devops</label>
-									</div>
-			
-									<div class="opsi">
-										<input type="radio" name="opsi" class="opsi" id="d2">
-										<label class="abjad" for="d2">D</label>
-										<label class="isi">Linux</label>
-									</div>
-									</div>
-									
-								
-			
-								
-			
-						</div>
-					<div class="nav-soal center aligned">
+			<div class="description" padding-left="30;" style="font-size:25px ;margin-top:10px;">
+							<p style="font-size:18px;"> <b> This is just a demo testpage</b></p>
+
+
+
+	 <label class="container"  > Option1
+		<input type="checkbox"  name="ques2" id="a2" value="i">
+		<span class="checkmark"></span>
+	</label>
+
+
+
+	 <label class="container"  > Option2 {Correct one}
+		<input type="checkbox"  name="ques2" id="b2" value="ii">
+		<span class="checkmark"></span>
+	</label>
+
+
+
+	 <label class="container"  > Option3
+		<input type="checkbox"  name="ques2" id="c2" value="iii">
+		<span class="checkmark"></span>
+	</label>
+
+
+
+	 <label class="container"  > Option4
+		<input type="checkbox"  name="ques2" id="d2" value="iv">
+		<span class="checkmark"></span>
+	</label>
+	
+</div></div>
+<br>
+
+<input type="hidden" name="testid" value="1">
+<input type="hidden" name="userid" value="17">
+<input type="hidden" name="questions" value="6">
+
+<div class="nav-soal center aligned">
 						<center>
-						<button class="btn btn-success " type="submit" >
-						  <i class="chevron right icon" ></i>
+						<button class="btn btn-success " type="submit" id="sub">
+						  <i class="chevron right icon"></i>
 						  Submit
 						</button>
 						</center>
 						
 					</div>
 
-				
-			
-			</form>
+
+
+</form>
 		</div>
-	</div>
+	
 
 
 	<!-- Page Footer -->
 
 	<!-- Required JavaScript -->
-	<script
-  src="https://code.jquery.com/jquery-3.3.1.min.js"
-  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
-  crossorigin="anonymous"></script>
-	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.js"></script>
+	<script src="Question-page_files/jquery-3.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+	<script type="text/javascript" src="Question-page_files/semantic.js"></script>
 	
 	<!-- Custom JavaScript -->
 	<script type="text/javascript">
@@ -331,5 +397,32 @@
 
 	});
 	</script>
-</body>
-</html>
+	<script type="text/javascript">
+		alert("Click OK to BEGIN!!!");
+		document.getElementById('timer').innerHTML =
+  30 + ":" + 00;
+startTimer();
+
+function startTimer() {
+  var presentTime = document.getElementById('timer').innerHTML;
+  var timeArray = presentTime.split(/[:]+/);
+  var m = timeArray[0];
+  var s = checkSecond((timeArray[1] - 1));
+  if(s==59){m=m-1}
+  if(m<0){document.getElementById("sub").click();}
+  
+  document.getElementById('timer').innerHTML =
+    m + ":" + s;
+  setTimeout(startTimer, 1000);
+}
+
+function checkSecond(sec) {
+  if (sec < 10 && sec >= 0) {sec = "0" + sec}; // add zero in front of numbers < 10
+  if (sec < 0) {sec = "59"};
+  return sec;
+}
+		</script>
+		
+
+</body></html>
+

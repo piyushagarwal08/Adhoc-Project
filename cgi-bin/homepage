@@ -150,11 +150,12 @@ document.onkeydown = function(e) {
   <!--==========================
     Features Section
   ============================-->
-
+  
   <section id="features" class="padd-section text-center wow fadeInUp">
 
     <div class="container">
       <div class="section-title text-center">
+      <a id="board"></a>
         <h2>Quiz Board</h2>
         <p class="separator">choose the technology below</p>
       </div>

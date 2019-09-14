@@ -86,5 +86,5 @@ print(c)
 print("Content-type: text/html\r\n\r\n") # Magic line
 print(basic)
 print('<h1><font color="#03fca9" face="verdana">Login Succesfull</font></h1>')
-print('<meta http-equiv = "refresh" content = "3; url = /" />')
+print('<meta http-equiv = "refresh" content = "3; url = /cgi-bin/homepage#board" />')
 print("</center></body></html>")
